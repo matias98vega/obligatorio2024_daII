@@ -31,7 +31,7 @@ namespace GestionEdificios.WebApi.Tests
                 Nombre = "Nombre invitado",
                 FechaLimite = DateTime.Today.AddDays(10),
                 Estado = EstadosInvitaciones.Abierta,
-                Encargado = new AdministradorDto()
+                Encargado = new UsuarioDto()
             };
 
             invitacion = new Invitacion()
@@ -41,7 +41,7 @@ namespace GestionEdificios.WebApi.Tests
                 Nombre = invitacionDto.Nombre,
                 FechaLimite = invitacionDto.FechaLimite,
                 Estado = invitacionDto.Estado,
-                Encargado = AdministradorDto.ToEntity(invitacionDto.Encargado)
+                Encargado = UsuarioDto.ToEntity(invitacionDto.Encargado)
             };
         }
         [TearDown]
@@ -87,7 +87,7 @@ namespace GestionEdificios.WebApi.Tests
                 Nombre = "Nombre invitado",
                 FechaLimite = DateTime.Today.AddDays(10),
                 Estado = EstadosInvitaciones.Abierta,
-                Encargado = new AdministradorDto()
+                Encargado = new UsuarioDto()
             };
 
             Invitacion invitacion2 = new Invitacion()
@@ -97,7 +97,7 @@ namespace GestionEdificios.WebApi.Tests
                 Nombre = invitacionDto2.Nombre,
                 FechaLimite = invitacionDto2.FechaLimite,
                 Estado = invitacionDto2.Estado,
-                Encargado = AdministradorDto.ToEntity(invitacionDto2.Encargado)
+                Encargado = UsuarioDto.ToEntity(invitacionDto2.Encargado)
             };
 
             mockWebApi.Setup(m => m.Agregar(It.IsAny<Invitacion>())).Throws(new Exception());

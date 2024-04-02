@@ -14,6 +14,6 @@ namespace GestionEdificios.Domain
         public string Nombre { get; set; }
         public DateTime FechaLimite { get; set; }
         public EstadosInvitaciones Estado { get; set; }
-        public virtual Administrador Encargado { get; set; }
+        public virtual Usuario Encargado { get; set; }
     }
 }
