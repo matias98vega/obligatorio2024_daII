@@ -11,7 +11,7 @@ namespace GestionEdificios.WebApi.DTOs
         public string Nombre { get; set; }
         public DateTime FechaLimite { get; set; }
         public EstadosInvitaciones Estado { get; set; }
-        public AdministradorDto Encargado { get; set; }
+        public UsuarioDto Encargado { get; set; }
         public InvitacionDto() { }
         public InvitacionDto(Invitacion entidad)
         {
@@ -33,7 +33,7 @@ namespace GestionEdificios.WebApi.DTOs
             Nombre = entidad.Nombre;
             FechaLimite = entidad.FechaLimite;
             Estado = entidad.Estado;
-            Encargado = AdministradorDto.ToModel(entidad.Encargado);
+            Encargado = UsuarioDto.ToModel(entidad.Encargado);
 
             return this;
         }

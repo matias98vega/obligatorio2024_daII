@@ -14,7 +14,7 @@ namespace GestionEdificios.Domain
         public string Descripcion { get; set; }
         public CategoriaServicio Categoria { get; set; }
         public EstadosServicios Estado { get; set; }
-        public Administrador UsuarioMantenimiento { get; set; }
+        public Usuario UsuarioMantenimiento { get; set; }
         public DateTime FechaInicio { get; set; }
         public DateTime FechaFin { get; set; }
         public int CostoTotal { get; set; }

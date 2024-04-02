@@ -9,18 +9,18 @@ using Moq;
 namespace GestionEdificios.WebApi.Tests
 {
     [TestFixture]
-    public class TestsAdministradorController
+    public class TestsUsuarioController
     {
-        private Mock<IAdministradorLogica> mockWebApi;
-        private AdministradoresController controller;
-        private AdministradorDto? adminDto;
-        private Administrador admin;
+        private Mock<IUsuarioLogica> mockWebApi;
+        private UsuariosController controller;
+        private UsuarioDto? adminDto;
+        private Usuario admin;
 
         [SetUp]
         public void SetUp()
         {
-            this.mockWebApi = new Mock<IAdministradorLogica>(MockBehavior.Strict);
-            adminDto = new AdministradorDto()
+            this.mockWebApi = new Mock<IUsuarioLogica>(MockBehavior.Strict);
+            adminDto = new UsuarioDto()
             {
                 Nombre = "Nombre Admin",
                 Apellido = "Apellido Admin",
@@ -28,7 +28,7 @@ namespace GestionEdificios.WebApi.Tests
                 Contraseña = "password"
             };
 
-            admin = new Administrador()
+            admin = new Usuario()
             {
                 Id = 1,
                 Nombre = adminDto.Nombre,
@@ -49,7 +49,7 @@ namespace GestionEdificios.WebApi.Tests
         public void TestAgreagarAdminInvalido()
         {
             mockWebApi.Setup(m => m.Agregar(null)).Throws(new Exception());
-            controller = new AdministradoresController(mockWebApi.Object);
+            controller = new UsuariosController(mockWebApi.Object);
             var resultado = controller.Post(null);
 
             mockWebApi.VerifyAll();
@@ -59,11 +59,11 @@ namespace GestionEdificios.WebApi.Tests
         [Test]
         public void TestAgregarAdminOk()
         {
-            mockWebApi.Setup(m => m.Agregar(It.IsAny<Administrador>())).Returns(admin);
-            controller = new AdministradoresController(mockWebApi.Object);
+            mockWebApi.Setup(m => m.Agregar(It.IsAny<Usuario>())).Returns(admin);
+            controller = new UsuariosController(mockWebApi.Object);
 
             CreatedAtActionResult resultado = (CreatedAtActionResult)controller.Post(adminDto);
-            var dto = resultado.Value as AdministradorDto;
+            var dto = resultado.Value as UsuarioDto;
             mockWebApi.VerifyAll();
             Assert.That(dto.Nombre, Is.EqualTo(admin.Nombre));
             Assert.That(dto.Apellido, Is.EqualTo(admin.Apellido));
@@ -75,7 +75,7 @@ namespace GestionEdificios.WebApi.Tests
         [Test]
         public void TestAgregarAdminConEmailExistente()
         {
-            AdministradorDto adminDto2 = new AdministradorDto()
+            UsuarioDto adminDto2 = new UsuarioDto()
             {
                 Nombre = "Nombre Admin",
                 Apellido = "Apellido Admin",
@@ -83,7 +83,7 @@ namespace GestionEdificios.WebApi.Tests
                 Contraseña = "password"
             };
 
-            Administrador admin2 = new Administrador()
+            Usuario admin2 = new Usuario()
             {
                 Id = 1,
                 Nombre = adminDto2.Nombre,
@@ -92,8 +92,8 @@ namespace GestionEdificios.WebApi.Tests
                 Contraseña = adminDto2.Contraseña
             };
 
-            mockWebApi.Setup(m => m.Agregar(It.IsAny<Administrador>())).Throws(new Exception());
-            controller = new AdministradoresController(mockWebApi.Object);
+            mockWebApi.Setup(m => m.Agregar(It.IsAny<Usuario>())).Throws(new Exception());
+            controller = new UsuariosController(mockWebApi.Object);
 
             BadRequestObjectResult resultado = (BadRequestObjectResult)controller.Post(adminDto2);
             mockWebApi.VerifyAll();

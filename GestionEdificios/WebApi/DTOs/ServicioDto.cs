@@ -9,7 +9,7 @@ namespace GestionEdificios.WebApi.DTOs
         public string Descripcion { get; set; }
         public CategoriaServicioDto Categoria { get; set; }
         public EstadosServicios Estado { get; set; }
-        public AdministradorDto UsuarioMantenimiento { get; set; }
+        public UsuarioDto UsuarioMantenimiento { get; set; }
         public DateTime FechaInicio { get; set; }
         public DateTime FechaFin { get; set; }
         public int CostoTotal { get; set; }
@@ -26,7 +26,7 @@ namespace GestionEdificios.WebApi.DTOs
             Descripcion = this.Descripcion,
             Categoria = CategoriaServicioDto.ToEntity(this.Categoria),
             Estado = this.Estado,
-            UsuarioMantenimiento = AdministradorDto.ToEntity(this.UsuarioMantenimiento),
+            UsuarioMantenimiento = UsuarioDto.ToEntity(this.UsuarioMantenimiento),
             FechaInicio = this.FechaInicio,
             FechaFin = this.FechaFin,
             CostoTotal = this.CostoTotal,
@@ -39,7 +39,7 @@ namespace GestionEdificios.WebApi.DTOs
             Descripcion = entidad.Descripcion;
             Categoria = CategoriaServicioDto.ToModel(entidad.Categoria);
             Estado = entidad.Estado;
-            UsuarioMantenimiento = AdministradorDto.ToModel(entidad.UsuarioMantenimiento);
+            UsuarioMantenimiento = UsuarioDto.ToModel(entidad.UsuarioMantenimiento);
             FechaInicio = entidad.FechaInicio;
             FechaFin= entidad.FechaFin;
             CostoTotal = entidad.CostoTotal;

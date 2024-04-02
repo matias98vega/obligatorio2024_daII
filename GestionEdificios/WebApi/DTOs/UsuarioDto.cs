@@ -2,19 +2,19 @@
 
 namespace GestionEdificios.WebApi.DTOs
 {
-    public class AdministradorDto : ModeloDto<Administrador, AdministradorDto>
+    public class UsuarioDto : ModeloDto<Usuario, UsuarioDto>
     {
         public int Id { get; set; }
         public string Nombre { get; set; }
         public string Apellido { get; set; }
         public string Email { get; set; }
         public string Contraseña { get; set; }
-        public AdministradorDto() { }
-        public AdministradorDto(Administrador entidad)
+        public UsuarioDto() { }
+        public UsuarioDto(Usuario entidad)
         {
             SetModel(entidad);
         }
-        public override Administrador ToEntity() => new Administrador()
+        public override Usuario ToEntity() => new Usuario()
         {
             Id = this.Id,
             Nombre = this.Nombre,
@@ -23,7 +23,7 @@ namespace GestionEdificios.WebApi.DTOs
             Contraseña = this.Contraseña
         };
 
-        protected override AdministradorDto SetModel(Administrador entidad)
+        protected override UsuarioDto SetModel(Usuario entidad)
         {
             Id = entidad.Id;
             Nombre = entidad.Nombre;

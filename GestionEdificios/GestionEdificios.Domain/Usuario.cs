@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GestionEdificios.Domain
 {
-    public class Administrador
+    public class Usuario
     {
         public int Id { get; set; }
         public string Nombre { get; set; }
@@ -15,6 +15,6 @@ namespace GestionEdificios.Domain
         public string Email { get; set; }
         public string Contraseña { get; set; }
         public Roles Rol { get; set; }
-        public Administrador() { }
+        public Usuario() { }
     }
 }

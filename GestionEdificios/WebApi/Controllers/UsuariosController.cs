@@ -7,29 +7,29 @@ namespace GestionEdificios.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AdministradoresController : Controller
+    public class UsuariosController : Controller
     {
-        private IAdministradorLogica admins;
-        public AdministradoresController(IAdministradorLogica administradores) : base()
+        private IUsuarioLogica admins;
+        public UsuariosController(IUsuarioLogica administradores) : base()
         {
             this.admins = administradores;
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody]AdministradorDto administradorDto)
+        public IActionResult Post([FromBody]UsuarioDto administradorDto)
         {
             try
             {
-                Administrador admin = admins.Agregar(AdministradorDto.ToEntity(administradorDto));
+                Usuario admin = admins.Agregar(UsuarioDto.ToEntity(administradorDto));
                 return CreatedAtAction(
                             "Get",
                             routeValues: new { id = admin.Id },
-                            value: AdministradorDto.ToModel(admin)
+                            value: UsuarioDto.ToModel(admin)
                             );
             }
             catch (Exception e)
             {
-                var respuesta = new ModeloRespuesta<AdministradorDto>() 
+                var respuesta = new ModeloRespuesta<UsuarioDto>() 
                 { 
                     Codigo = 400,
                     Mensaje = e.Message 
@@ -41,11 +41,11 @@ namespace GestionEdificios.WebApi.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            IEnumerable<Administrador> adminsResultado = admins.ObtenerTodos();
-            var respuesta = new ModeloRespuesta<IEnumerable<AdministradorDto>>()
+            IEnumerable<Usuario> adminsResultado = admins.ObtenerTodos();
+            var respuesta = new ModeloRespuesta<IEnumerable<UsuarioDto>>()
             {
                 Codigo = 200,
-                Contenido = AdministradorDto.ToModel(adminsResultado),
+                Contenido = UsuarioDto.ToModel(adminsResultado),
                 Mensaje = "Se muestran todos los administradores."
             };
 
@@ -61,10 +61,10 @@ namespace GestionEdificios.WebApi.Controllers
         {
             try
             {
-                Administrador admin = admins.Obtener(id);
-                var respuesta = new ModeloRespuesta<AdministradorDto>()
+                Usuario admin = admins.Obtener(id);
+                var respuesta = new ModeloRespuesta<UsuarioDto>()
                 {
-                    Contenido = AdministradorDto.ToModel(admin),
+                    Contenido = UsuarioDto.ToModel(admin),
                     Codigo = 200,
                     Mensaje = "Se muestra información del administrador."
                 };
@@ -72,7 +72,7 @@ namespace GestionEdificios.WebApi.Controllers
             }
             catch (Exception e)
             {
-                var respuesta = new ModeloRespuesta<AdministradorDto>()
+                var respuesta = new ModeloRespuesta<UsuarioDto>()
                 {
                     Mensaje = e.Message,
                     Codigo = 400
@@ -87,7 +87,7 @@ namespace GestionEdificios.WebApi.Controllers
             try
             {
                 admins.Eliminar(id);
-                var respuesta = new ModeloRespuesta<AdministradorDto>()
+                var respuesta = new ModeloRespuesta<UsuarioDto>()
                 {
                     Mensaje = "Administrador eliminado con éxito.",
                     Codigo = 200
@@ -96,7 +96,7 @@ namespace GestionEdificios.WebApi.Controllers
             }
             catch (Exception e)
             {
-                var respuesta = new ModeloRespuesta<AdministradorDto>()
+                var respuesta = new ModeloRespuesta<UsuarioDto>()
                 {
                     Mensaje = e.Message,
                     Codigo = 400
@@ -106,20 +106,20 @@ namespace GestionEdificios.WebApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody]AdministradorDto administradorDto)
+        public IActionResult Put(int id, [FromBody]UsuarioDto administradorDto)
         {
             try
             {
-                Administrador adminActualizado = admins.Actualizar(id, AdministradorDto.ToEntity(administradorDto));
+                Usuario adminActualizado = admins.Actualizar(id, UsuarioDto.ToEntity(administradorDto));
                 return CreatedAtAction(
                             "Put",
                             new { id = adminActualizado.Id },
-                            AdministradorDto.ToModel(adminActualizado)
+                            UsuarioDto.ToModel(adminActualizado)
                             );
             }
             catch (Exception e)
             {
-                var respuesta = new ModeloRespuesta<AdministradorDto>()
+                var respuesta = new ModeloRespuesta<UsuarioDto>()
                 {
                     Mensaje = e.Message,
                     Codigo = 400
