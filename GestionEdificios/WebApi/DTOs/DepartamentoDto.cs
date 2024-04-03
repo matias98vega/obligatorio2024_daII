@@ -6,6 +6,7 @@ namespace GestionEdificios.WebApi.DTOs
     {
         public int Id { get; set; }
         public int Piso { get; set; }
+        public int Numero { get; set; }
         public bool ConTerraza { get; set; }
         public int CantidadBaños { get; set; }
         public int CantidadCuartos { get; set; }
@@ -20,6 +21,7 @@ namespace GestionEdificios.WebApi.DTOs
         {
             Id = this.Id,
             Piso = this.Piso,
+            Numero = this.Numero,
             ConTerraza = this.ConTerraza,
             CantidadBaños = this.CantidadBaños,
             CantidadCuartos = this.CantidadCuartos,
@@ -30,6 +32,7 @@ namespace GestionEdificios.WebApi.DTOs
         {
             Id = entidad.Id;
             Piso = entidad.Piso;
+            Numero = entidad.Numero;
             ConTerraza = entidad.ConTerraza;
             CantidadBaños = entidad.CantidadBaños;
             CantidadCuartos = entidad.CantidadCuartos;
