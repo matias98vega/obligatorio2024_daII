@@ -3,25 +3,25 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32811.315
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GestionEdificios.WebApi", "WebApi\GestionEdificios.WebApi.csproj", "{56E449EF-0624-4CDC-800E-ADF0E386D4C7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GestionEdificios.WebApi", "WebApi\GestionEdificios.WebApi.csproj", "{56E449EF-0624-4CDC-800E-ADF0E386D4C7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GestionEdificios.BusinessLogic", "GestionEdificios.BusinessLogic\GestionEdificios.BusinessLogic.csproj", "{81B34F6A-DC5F-49AF-B2BE-0DC6F411E828}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GestionEdificios.BusinessLogic", "GestionEdificios.BusinessLogic\GestionEdificios.BusinessLogic.csproj", "{81B34F6A-DC5F-49AF-B2BE-0DC6F411E828}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GestionEdificios.BusinessLogic.Interfaces", "GestionEdificios.BusinessLogic.Interfaces\GestionEdificios.BusinessLogic.Interfaces.csproj", "{AE7C2041-DDC4-4A81-AA5A-D717D381FDD2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GestionEdificios.BusinessLogic.Interfaces", "GestionEdificios.BusinessLogic.Interfaces\GestionEdificios.BusinessLogic.Interfaces.csproj", "{AE7C2041-DDC4-4A81-AA5A-D717D381FDD2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GestionEdificios.BusinessLogic.Tests", "GestionEdificios.BusinessLogic.Tests\GestionEdificios.BusinessLogic.Tests.csproj", "{C7988899-AFFF-4300-BF6F-D442F898E15E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GestionEdificios.BusinessLogic.Tests", "GestionEdificios.BusinessLogic.Tests\GestionEdificios.BusinessLogic.Tests.csproj", "{C7988899-AFFF-4300-BF6F-D442F898E15E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GestionEdificios.DataAccess", "GestionEdificios.DataAccess\GestionEdificios.DataAccess.csproj", "{4A52A5AB-3F1F-4318-9DC4-BB221E0D9733}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GestionEdificios.DataAccess", "GestionEdificios.DataAccess\GestionEdificios.DataAccess.csproj", "{4A52A5AB-3F1F-4318-9DC4-BB221E0D9733}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GestionEdificios.DataAccess.Interfaces", "GestionEdificios.DataAccess.Interfaces\GestionEdificios.DataAccess.Interfaces.csproj", "{83E2AF53-E38C-446D-A37C-08A736046DAB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GestionEdificios.DataAccess.Interfaces", "GestionEdificios.DataAccess.Interfaces\GestionEdificios.DataAccess.Interfaces.csproj", "{83E2AF53-E38C-446D-A37C-08A736046DAB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GestionEdificios.DataAccess.Tests", "GestionEdificios.DataAccess.Tests\GestionEdificios.DataAccess.Tests.csproj", "{812DF6A5-AD95-4943-861B-F95C721FCAA7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GestionEdificios.DataAccess.Tests", "GestionEdificios.DataAccess.Tests\GestionEdificios.DataAccess.Tests.csproj", "{812DF6A5-AD95-4943-861B-F95C721FCAA7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GestionEdificios.Domain", "GestionEdificios.Domain\GestionEdificios.Domain.csproj", "{E6CA40DE-77D4-4455-801F-DC056CBCB933}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GestionEdificios.Domain", "GestionEdificios.Domain\GestionEdificios.Domain.csproj", "{E6CA40DE-77D4-4455-801F-DC056CBCB933}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GestionEdificios.Exceptions", "GestionEdificios.Exceptions\GestionEdificios.Exceptions.csproj", "{57EA4C3F-124D-47CF-9B52-A839F8584212}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GestionEdificios.Exceptions", "GestionEdificios.Exceptions\GestionEdificios.Exceptions.csproj", "{57EA4C3F-124D-47CF-9B52-A839F8584212}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GestionEdificios.WebApi.Tests", "GestionEdificios.WebApi.Tests\GestionEdificios.WebApi.Tests.csproj", "{C4F48C08-55E9-47B7-AEAD-EAD11E643CFA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GestionEdificios.WebApi.Tests", "GestionEdificios.WebApi.Tests\GestionEdificios.WebApi.Tests.csproj", "{907603C0-DECB-41AE-B69B-FD6D7E59261B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,10 +65,10 @@ Global
 		{57EA4C3F-124D-47CF-9B52-A839F8584212}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57EA4C3F-124D-47CF-9B52-A839F8584212}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{57EA4C3F-124D-47CF-9B52-A839F8584212}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C4F48C08-55E9-47B7-AEAD-EAD11E643CFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C4F48C08-55E9-47B7-AEAD-EAD11E643CFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C4F48C08-55E9-47B7-AEAD-EAD11E643CFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C4F48C08-55E9-47B7-AEAD-EAD11E643CFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{907603C0-DECB-41AE-B69B-FD6D7E59261B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{907603C0-DECB-41AE-B69B-FD6D7E59261B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{907603C0-DECB-41AE-B69B-FD6D7E59261B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{907603C0-DECB-41AE-B69B-FD6D7E59261B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
