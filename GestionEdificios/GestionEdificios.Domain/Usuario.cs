@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace GestionEdificios.Domain
 {
@@ -16,5 +17,24 @@ namespace GestionEdificios.Domain
         public string Contraseña { get; set; }
         public Roles Rol { get; set; }
         public Usuario() { }
+
+        public Usuario(int id, string nombre, string apellido, string email, string contraseña, Roles rol) { 
+            this.Id = id;
+            this.Nombre = nombre;   
+            this.Apellido = apellido;
+            this.Email = email;
+            this.Contraseña = contraseña;
+            this.Rol = rol;        
+        }
+
+        public Usuario Actualizar(Usuario usuario)
+        {            
+            this.Nombre = usuario.Nombre;
+            this.Apellido = usuario.Apellido;
+            this.Email = usuario.Email;
+            this.Contraseña = usuario.Contraseña;
+
+            return this;
+        }
     }
 }

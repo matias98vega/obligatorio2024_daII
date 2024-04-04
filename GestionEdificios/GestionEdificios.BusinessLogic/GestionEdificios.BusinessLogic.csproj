@@ -6,4 +6,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\GestionEdificios.BusinessLogic.Interfaces\GestionEdificios.BusinessLogic.Interfaces.csproj" />
+    <ProjectReference Include="..\GestionEdificios.DataAccess.Interfaces\GestionEdificios.DataAccess.Interfaces.csproj" />
+    <ProjectReference Include="..\GestionEdificios.Exceptions\GestionEdificios.Exceptions.csproj" />
+  </ItemGroup>
+
 </Project>

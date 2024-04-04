@@ -9,7 +9,7 @@ namespace GestionEdificios.BusinessLogic.Interfaces
 {
     public interface IUsuarioLogica
     {
-        Usuario Agregar(Usuario admin);
+        Usuario Agregar(Usuario usuario);
         Usuario Obtener(int Id);
         IEnumerable<Usuario> ObtenerTodos();
         void Eliminar (int Id);
