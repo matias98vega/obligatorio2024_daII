@@ -61,10 +61,10 @@ namespace GestionEdificios.BusinessLogic.Helpers
             }
         }
 
-        public void ValidarEmailEstaEnUso(Usuario usuarioViejo, Usuario nuevoUsuario)
+        public void ValidarEmailEstaEnUso(Usuario nuevoUsuario)
         {
             var usuarioExiste = repositorio.ObtenerPorEmail(nuevoUsuario.Email);
-            if (usuarioExiste != null && usuarioViejo.Id != usuarioExiste.Id)
+            if (usuarioExiste != null)
             {
                 throw new UsuarioEmailYaExisteExcepcion("El email ya esta siendo usado por otro usuario.");
             }

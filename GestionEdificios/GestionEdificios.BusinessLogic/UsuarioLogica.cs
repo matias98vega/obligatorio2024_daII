@@ -26,9 +26,9 @@ namespace GestionEdificios.BusinessLogic
         {
             try
             {
-                Usuario usuarioViejo = ObtenerUsuarioPorId(id);
+                Usuario usuarioViejo = Obtener(id);
                 validaciones.ValidarUsuario(modificado);
-                validaciones.ValidarEmailEstaEnUso(usuarioViejo, modificado);
+                validaciones.ValidarEmailEstaEnUso(modificado);
                 usuarioViejo.Actualizar(modificado);
                 usuarios.Actualizar(usuarioViejo);
                 usuarios.Salvar();
@@ -53,7 +53,7 @@ namespace GestionEdificios.BusinessLogic
         {
             try
             {
-                Usuario usuario = ObtenerUsuarioPorId(Id);
+                Usuario usuario = Obtener(Id);
                 usuarios.Borrar(usuario);
                 usuarios.Salvar();
             }
@@ -61,6 +61,11 @@ namespace GestionEdificios.BusinessLogic
             {
                 throw new UsuarioExcepcionDB(e.Message);
             }
+        }
+
+        public bool Existe(Usuario usuario)
+        {
+            return usuarios.Existe(usuario);
         }
 
         public Usuario Obtener(int Id)

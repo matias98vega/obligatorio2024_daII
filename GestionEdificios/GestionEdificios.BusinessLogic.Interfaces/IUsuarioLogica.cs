@@ -14,5 +14,6 @@ namespace GestionEdificios.BusinessLogic.Interfaces
         IEnumerable<Usuario> ObtenerTodos();
         void Eliminar (int Id);
         Usuario Actualizar(int id, Usuario modificado);
+        bool Existe(Usuario usuario);
     }
 }
