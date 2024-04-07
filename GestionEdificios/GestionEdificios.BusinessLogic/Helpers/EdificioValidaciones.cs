@@ -24,9 +24,9 @@ namespace GestionEdificios.BusinessLogic.Helpers
             {
                 throw new EdificioExcepcionDB("El edificio está vacio");
             }
-            if (TextoInvalido(edificio.Nombre))
+            if (TextoInvalido(edificio.Nombre) || TextoInvalido(edificio.Direccion))
             {
-                throw new EdificioExcepcionDatos("El nombre del edificio no puede ser vacio.");
+                throw new EdificioExcepcionDatos("Los atributos del edificio no pueden estar vacios.");
             }
         }
 
