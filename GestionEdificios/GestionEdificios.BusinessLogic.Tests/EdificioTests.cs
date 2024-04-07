@@ -4,6 +4,7 @@ using GestionEdificios.Domain;
 using GestionEdificios.Domain.Enumerados;
 using GestionEdificios.Exceptions.ExcepcionesDatos;
 using GestionEdificios.Exceptions.ExcepcionesDB;
+using GestionEdificios.Exceptions.ExcepcionesLogica;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -32,7 +33,8 @@ namespace GestionEdificios.BusinessLogic.Tests
             {
                 Nombre = "Edificio 1",
                 Direccion = "Dirección 1",
-                Ubicacion = "34°54'31.6\"S 56°11'27.1\"W"
+                Ubicacion = "34°54'31.6\"S 56°11'27.1\"W",
+                Constructora = "Constructora 1"
             };
 
             mockRepositorio.Setup(m => m.Agregar(It.IsAny<Edificio>()));
@@ -118,6 +120,26 @@ namespace GestionEdificios.BusinessLogic.Tests
             };
 
             mockRepositorio.Setup(m => m.Agregar(It.IsAny<Edificio>()));
+            edificioLogica = new EdificioLogica(mockRepositorio.Object);
+            Edificio edificioCreado = edificioLogica.Agregar(edificio);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(EdificioExisteExcepcion))]
+        public void TestCrearEdificioNombreYaExistente()
+        {
+            Edificio edificio = new Edificio()
+            {
+                Id = 1,
+                Nombre = "Edificio 1",
+                Direccion = "Dirección 1",
+                Ubicacion = "34°54'31.6\"S 56°11'27.1\"W",
+                Constructora = "Consturctora 1"
+            };
+
+            mockRepositorio.Setup(m => m.Agregar(It.IsAny<Edificio>()));
+            mockRepositorio.Setup(m => m.Existe(edificio)).Returns(true);
+
             edificioLogica = new EdificioLogica(mockRepositorio.Object);
             Edificio edificioCreado = edificioLogica.Agregar(edificio);
         }
