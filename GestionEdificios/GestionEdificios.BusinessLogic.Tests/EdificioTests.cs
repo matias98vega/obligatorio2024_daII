@@ -13,13 +13,13 @@ namespace GestionEdificios.BusinessLogic.Tests
     [TestClass]
     public class EdificioTests
     {
-        private IEdificioLogica eidificioLogica;
-        private Mock<IEdificioLogica> mockRepositorio;
+        private IEdificioLogica edificioLogica;
+        private Mock<IEdificioRepositorio> mockRepositorio;
 
         [TestInitialize]
         public void SetUp()
         {
-            mockRepositorio = new Mock<IEdificioLogica>(MockBehavior.Strict);
+            mockRepositorio = new Mock<IEdificioRepositorio>(MockBehavior.Strict);
         }
 
         [TestMethod]
@@ -30,7 +30,11 @@ namespace GestionEdificios.BusinessLogic.Tests
                 Nombre = "Edificio 1"
             };
 
-            Edificio edificioCreado = eidificioLogica.Agregar(edificio);
+            mockRepositorio.Setup(m => m.Agregar(It.IsAny<Edificio>()));
+            mockRepositorio.Setup(m => m.Salvar());
+
+            edificioLogica = new EdificioLogica(mockRepositorio.Object);
+            Edificio edificioCreado = edificioLogica.Agregar(edificio);
 
             Assert.AreEqual(edificio.Nombre, edificioCreado.Nombre);
         }
