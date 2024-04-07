@@ -28,6 +28,7 @@ namespace GestionEdificios.BusinessLogic
         public Edificio Agregar(Edificio edificio)
         {
             validaciones.ValidarEdificio(edificio);
+            validaciones.EdificioYaExiste(edificio);
             edificios.Agregar(edificio);
             edificios.Salvar();
             return edificio;

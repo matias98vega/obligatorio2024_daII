@@ -2,6 +2,7 @@
 using GestionEdificios.Domain;
 using GestionEdificios.Exceptions.ExcepcionesDatos;
 using GestionEdificios.Exceptions.ExcepcionesDB;
+using GestionEdificios.Exceptions.ExcepcionesLogica;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +34,14 @@ namespace GestionEdificios.BusinessLogic.Helpers
         public bool TextoInvalido(string valor)
         {
             return String.IsNullOrWhiteSpace(valor);
+        }
+
+        public void EdificioYaExiste(Edificio edificio)
+        {
+            if (edificios.Existe(edificio))
+            {
+                throw new EdificioExisteExcepcion("Ya existe un edificio con el nombre ingresado.");
+            }
         }
     }
 }
