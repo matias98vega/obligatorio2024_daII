@@ -11,6 +11,7 @@ namespace GestionEdificios.Domain
     {
         public int Id { get; set; }
         public int Piso { get; set; }
+        public int Numero { get; set; }
         public bool ConTerraza { get; set; }
         public int CantidadBaños { get; set; }
         public int CantidadCuartos { get; set; }

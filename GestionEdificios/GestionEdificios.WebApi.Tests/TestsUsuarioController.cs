@@ -9,7 +9,7 @@ using Moq;
 namespace GestionEdificios.WebApi.Tests
 {
     [TestFixture]
-    public class TestsAdministradorController
+    public class TestsUsuarioController
     {
         private Mock<IUsuarioLogica> mockWebApi;
         private UsuariosController controller;
