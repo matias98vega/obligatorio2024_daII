@@ -1,6 +1,7 @@
 ﻿using GestionEdificios.BusinessLogic.Interfaces;
 using GestionEdificios.DataAccess.Interfaces;
 using GestionEdificios.Domain;
+using GestionEdificios.Exceptions.ExcepcionesDB;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -37,6 +38,17 @@ namespace GestionEdificios.BusinessLogic.Tests
             Edificio edificioCreado = edificioLogica.Agregar(edificio);
 
             Assert.AreEqual(edificio.Nombre, edificioCreado.Nombre);
+        }
+
+        [TestMethod]
+        public void TestCrearEdificioVacio() 
+        {
+            mockRepositorio.Setup(m => m.Agregar(null)).Throws(new ExcepcionDB("", new EdificioExcepcionDB("")));
+            
+            edificioLogica = new EdificioLogica(mockRepositorio.Object);
+            Edificio edificioCreado = edificioLogica.Agregar(null);
+
+            mockRepositorio.VerifyAll();
         }
     }
 }
