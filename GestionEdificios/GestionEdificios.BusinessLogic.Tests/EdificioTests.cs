@@ -30,7 +30,8 @@ namespace GestionEdificios.BusinessLogic.Tests
         {
             Edificio edificio = new Edificio()
             {
-                Nombre = "Edificio 1"
+                Nombre = "Edificio 1",
+                Direccion = "Dirección 1"
             };
 
             mockRepositorio.Setup(m => m.Agregar(It.IsAny<Edificio>()));
