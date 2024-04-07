@@ -85,5 +85,22 @@ namespace GestionEdificios.BusinessLogic.Tests
             edificioLogica = new EdificioLogica(mockRepositorio.Object);
             Edificio edificioCreado = edificioLogica.Agregar(edificio);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(EdificioExcepcionDatos))]
+        public void TestCrearEdificioUbicacionVacia()
+        {
+            Edificio edificio = new Edificio()
+            {
+                Id = 1,
+                Nombre = "Edificio 1",
+                Direccion = "Dirección 1",
+                Ubicacion = ""
+            };
+
+            mockRepositorio.Setup(m => m.Agregar(It.IsAny<Edificio>()));
+            edificioLogica = new EdificioLogica(mockRepositorio.Object);
+            Edificio edificioCreado = edificioLogica.Agregar(edificio);
+        }
     }
 }
