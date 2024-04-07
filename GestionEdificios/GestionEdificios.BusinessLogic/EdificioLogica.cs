@@ -24,7 +24,9 @@ namespace GestionEdificios.BusinessLogic
 
         public Edificio Agregar(Edificio edificio)
         {
-            throw new NotImplementedException();
+            edificios.Agregar(edificio);
+            edificios.Salvar();
+            return edificio;
         }
 
         public void Eliminar(int Id)
