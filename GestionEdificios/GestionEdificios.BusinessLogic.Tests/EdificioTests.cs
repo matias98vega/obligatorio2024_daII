@@ -31,7 +31,8 @@ namespace GestionEdificios.BusinessLogic.Tests
             Edificio edificio = new Edificio()
             {
                 Nombre = "Edificio 1",
-                Direccion = "Dirección 1"
+                Direccion = "Dirección 1",
+                Ubicacion = "34°54'31.6\"S 56°11'27.1\"W"
             };
 
             mockRepositorio.Setup(m => m.Agregar(It.IsAny<Edificio>()));
