@@ -1,5 +1,6 @@
 ﻿using GestionEdificios.DataAccess.Interfaces;
 using GestionEdificios.Domain;
+using GestionEdificios.Exceptions.ExcepcionesDatos;
 using GestionEdificios.Exceptions.ExcepcionesDB;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,15 @@ namespace GestionEdificios.BusinessLogic.Helpers
             {
                 throw new EdificioExcepcionDB("El edificio está vacio");
             }
+            if (TextoInvalido(edificio.Nombre))
+            {
+                throw new EdificioExcepcionDatos("El nombre del edificio no puede ser vacio.");
+            }
+        }
+
+        public bool TextoInvalido(string valor)
+        {
+            return String.IsNullOrWhiteSpace(valor);
         }
     }
 }
