@@ -25,7 +25,10 @@ namespace GestionEdificios.BusinessLogic.Tests
         [TestMethod]
         public void TestCrearEdificioOk()
         {
-            Edificio edificio = new Edificio();
+            Edificio edificio = new Edificio()
+            {
+                Nombre = "Edificio 1"
+            };
 
             Edificio edificioCreado = eidificioLogica.Agregar(edificio);
 

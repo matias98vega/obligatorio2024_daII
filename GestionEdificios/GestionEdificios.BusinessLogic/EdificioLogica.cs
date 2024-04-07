@@ -1,4 +1,5 @@
 ﻿using GestionEdificios.BusinessLogic.Interfaces;
+using GestionEdificios.DataAccess.Interfaces;
 using GestionEdificios.Domain;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,12 @@ namespace GestionEdificios.BusinessLogic
 {
     public class EdificioLogica : IEdificioLogica
     {
+        private IEdificioRepositorio edificios;
+
+        public EdificioLogica(IEdificioRepositorio repositorio) 
+        {
+            edificios = repositorio;
+        }
         public Edificio Actualizar(int id, Edificio modificado)
         {
             throw new NotImplementedException();
