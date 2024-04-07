@@ -1,4 +1,5 @@
 ﻿using GestionEdificios.DataAccess.Interfaces;
+using GestionEdificios.Domain;
 using GestionEdificios.Exceptions.ExcepcionesDB;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,18 @@ namespace GestionEdificios.BusinessLogic.Helpers
 {
     public class EdificioValidaciones
     {
+        private IEdificioRepositorio edificios;
+        public EdificioValidaciones(IEdificioRepositorio repositorio)
+        {
+            this.edificios = repositorio;
+        }
 
+        public void ValidarEdificio(Edificio edificio)
+        {
+            if (edificio == null)
+            {
+                throw new EdificioExcepcionDB("El edificio está vacio");
+            }
+        }
     }
 }

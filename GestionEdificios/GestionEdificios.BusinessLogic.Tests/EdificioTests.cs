@@ -41,6 +41,7 @@ namespace GestionEdificios.BusinessLogic.Tests
         }
 
         [TestMethod]
+        [ExpectedException(typeof(EdificioExcepcionDB))]
         public void TestCrearEdificioVacio() 
         {
             mockRepositorio.Setup(m => m.Agregar(null)).Throws(new ExcepcionDB("", new EdificioExcepcionDB("")));

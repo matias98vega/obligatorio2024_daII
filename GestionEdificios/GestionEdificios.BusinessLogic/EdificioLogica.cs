@@ -1,4 +1,5 @@
-﻿using GestionEdificios.BusinessLogic.Interfaces;
+﻿using GestionEdificios.BusinessLogic.Helpers;
+using GestionEdificios.BusinessLogic.Interfaces;
 using GestionEdificios.DataAccess.Interfaces;
 using GestionEdificios.Domain;
 using System;
@@ -12,10 +13,12 @@ namespace GestionEdificios.BusinessLogic
     public class EdificioLogica : IEdificioLogica
     {
         private IEdificioRepositorio edificios;
+        private EdificioValidaciones validaciones;
 
         public EdificioLogica(IEdificioRepositorio repositorio) 
         {
             edificios = repositorio;
+            this.validaciones = new EdificioValidaciones(repositorio);
         }
         public Edificio Actualizar(int id, Edificio modificado)
         {
@@ -24,6 +27,7 @@ namespace GestionEdificios.BusinessLogic
 
         public Edificio Agregar(Edificio edificio)
         {
+            validaciones.ValidarEdificio(edificio);
             edificios.Agregar(edificio);
             edificios.Salvar();
             return edificio;
