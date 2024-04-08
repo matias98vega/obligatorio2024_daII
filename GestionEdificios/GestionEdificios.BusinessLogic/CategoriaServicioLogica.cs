@@ -27,7 +27,11 @@ namespace GestionEdificios.BusinessLogic
 
         public CategoriaServicio Agregar(CategoriaServicio categoria)
         {
-            throw new NotImplementedException();
+            validaciones.ValidarCategoria(categoria);
+            validaciones.CategoriaYaExiste(categoria);
+            categorias.Agregar(categoria);
+            categorias.Salvar();
+            return categoria;
         }
 
         public void Eliminar(int Id)
