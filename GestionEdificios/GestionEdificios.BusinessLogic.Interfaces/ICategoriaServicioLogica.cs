@@ -14,5 +14,6 @@ namespace GestionEdificios.BusinessLogic.Interfaces
         IEnumerable<CategoriaServicio> ObtenerTodas();
         void Eliminar(int Id);
         CategoriaServicio Actualizar(int id, CategoriaServicio modificado);
+        bool Existe(CategoriaServicio categoria);
     }
 }

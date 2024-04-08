@@ -83,5 +83,46 @@ namespace GestionEdificios.BusinessLogic.Tests
 
         /***************/
 
+        /****** Borrar *******/
+        [TestMethod]
+        public void TestBorrarCategoriaPorId()
+        {
+            var id = 1;
+            CategoriaServicio categoria = new CategoriaServicio()
+            {
+                Id = id,
+                Nombre = "",
+            };
+
+            mockRepositorio.Setup(m => m.Obtener(id)).Returns(categoria);
+            mockRepositorio.Setup(m => m.Borrar(categoria));
+            mockRepositorio.Setup(m => m.Salvar());
+            mockRepositorio.Setup(m => m.Existe(categoria)).Returns(false);
+
+            categoriaLogica = new CategoriaServicioLogica(mockRepositorio.Object);
+            categoriaLogica.Eliminar(id);
+
+            Assert.AreEqual(categoriaLogica.Existe(categoria), false);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(UsuarioExcepcionDB))]
+        public void TestBorrarCategoriaConIdIncorrecto()
+        {
+            var id = 1;
+            CategoriaServicio categoria = new CategoriaServicio()
+            {
+                Id = id,
+                Nombre = "",
+            };
+
+            mockRepositorio.Setup(m => m.Obtener(id))
+                            .Throws(new ExcepcionDB("", new CategoriaExcepcionDB("")));
+            categoriaLogica = new CategoriaServicioLogica(mockRepositorio.Object);
+            categoriaLogica.Eliminar(id);
+        }
+
+        /******/
+
     }
 }

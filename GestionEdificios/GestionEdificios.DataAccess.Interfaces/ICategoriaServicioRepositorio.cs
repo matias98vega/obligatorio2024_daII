@@ -9,6 +9,6 @@ namespace GestionEdificios.DataAccess.Interfaces
 {
     public interface ICategoriaServicioRepositorio : IRepositorio<CategoriaServicio>
     {
-
+        CategoriaServicio Obtener(int id);
     }
 }

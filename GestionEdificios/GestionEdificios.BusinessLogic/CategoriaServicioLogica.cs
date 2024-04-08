@@ -39,6 +39,11 @@ namespace GestionEdificios.BusinessLogic
             throw new NotImplementedException();
         }
 
+        public bool Existe(CategoriaServicio categoria)
+        {
+            return categorias.Existe(categoria);
+        }
+
         public CategoriaServicio Obtener(int Id)
         {
             throw new NotImplementedException();
