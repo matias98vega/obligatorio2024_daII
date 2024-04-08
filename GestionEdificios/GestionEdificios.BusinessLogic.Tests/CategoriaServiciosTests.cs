@@ -91,7 +91,7 @@ namespace GestionEdificios.BusinessLogic.Tests
             CategoriaServicio categoria = new CategoriaServicio()
             {
                 Id = id,
-                Nombre = "",
+                Nombre = "Plomeria",
             };
 
             mockRepositorio.Setup(m => m.Obtener(id)).Returns(categoria);
@@ -106,7 +106,7 @@ namespace GestionEdificios.BusinessLogic.Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(UsuarioExcepcionDB))]
+        [ExpectedException(typeof(CategoriaExcepcionDB))]
         public void TestBorrarCategoriaConIdIncorrecto()
         {
             var id = 1;
@@ -124,5 +124,10 @@ namespace GestionEdificios.BusinessLogic.Tests
 
         /******/
 
+        /***** Actualizar *****/
+
+
+
+        /*******************/
     }
 }

@@ -2,6 +2,8 @@
 using GestionEdificios.BusinessLogic.Interfaces;
 using GestionEdificios.DataAccess.Interfaces;
 using GestionEdificios.Domain;
+using GestionEdificios.Exceptions.ExcepcionesDB;
+using GestionEdificios.Exceptions.ExcepcionesLogica;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,7 +38,16 @@ namespace GestionEdificios.BusinessLogic
 
         public void Eliminar(int Id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                CategoriaServicio categoria = Obtener(Id);
+                categorias.Borrar(categoria);
+                categorias.Salvar();
+            }
+            catch (ExcepcionDB e)
+            {
+                throw new CategoriaExcepcionDB(e.Message);
+            }
         }
 
         public bool Existe(CategoriaServicio categoria)
@@ -46,12 +57,29 @@ namespace GestionEdificios.BusinessLogic
 
         public CategoriaServicio Obtener(int Id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return ObtenerCategoriaPorId(Id);
+            }
+            catch (ExcepcionDB e)
+            {
+                throw new CategoriaExcepcionDB(e.Message);
+            }
         }
 
         public IEnumerable<CategoriaServicio> ObtenerTodas()
         {
             throw new NotImplementedException();
+        }
+
+        public CategoriaServicio ObtenerCategoriaPorId(int id)
+        {
+            CategoriaServicio retornada = categorias.Obtener(id);
+            if (retornada == null)
+            {
+                throw new CategoriaNoEncontradaExcepcion("No se encontro categoria con id: " + id);
+            }
+            return retornada;
         }
     }
 }
