@@ -18,6 +18,7 @@ using System.Security.Cryptography;
 
 namespace GestionEdificios.BusinessLogic.Tests
 {
+    [TestClass]
     public class CategoriaServiciosTests
     {
         private ICategoriaServicioLogica categoriaLogica;
@@ -62,6 +63,22 @@ namespace GestionEdificios.BusinessLogic.Tests
             CategoriaServicio categoriaCreada = categoriaLogica.Agregar(null);
 
             mockRepositorio.VerifyAll();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(CategoriaExcepcionDatos))]
+        public void TestCrearCategoriaNombreVacio()
+        {
+            CategoriaServicio categoria = new CategoriaServicio()
+            {
+                Id = 1,
+                Nombre = "",
+            };
+
+
+            mockRepositorio.Setup(m => m.Agregar(It.IsAny<CategoriaServicio>()));
+            categoriaLogica = new CategoriaServicioLogica(mockRepositorio.Object);
+            CategoriaServicio categoriaCreada = categoriaLogica.Agregar(categoria);
         }
 
         /***************/
