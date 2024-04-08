@@ -1,4 +1,6 @@
-﻿using GestionEdificios.BusinessLogic.Interfaces;
+﻿using GestionEdificios.BusinessLogic.Helpers;
+using GestionEdificios.BusinessLogic.Interfaces;
+using GestionEdificios.DataAccess.Interfaces;
 using GestionEdificios.Domain;
 using System;
 using System.Collections.Generic;
@@ -10,6 +12,14 @@ namespace GestionEdificios.BusinessLogic
 {
     public class CategoriaServicioLogica : ICategoriaServicioLogica
     {
+        private ICategoriaServicioRepositorio categorias;
+        private CategoriaServiciosValidaciones validaciones;
+        public CategoriaServicioLogica(ICategoriaServicioRepositorio repositorio)
+        {
+            this.categorias = repositorio;
+            this.validaciones = new CategoriaServiciosValidaciones(repositorio);
+
+        }
         public CategoriaServicio Actualizar(int id, CategoriaServicio modificado)
         {
             throw new NotImplementedException();
