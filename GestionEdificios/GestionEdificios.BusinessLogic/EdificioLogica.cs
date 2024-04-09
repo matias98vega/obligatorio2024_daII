@@ -67,7 +67,7 @@ namespace GestionEdificios.BusinessLogic
 
         public IEnumerable<Edificio> ObtenerTodos()
         {
-            throw new NotImplementedException();
+            return this.edificios.ObtenerTodos();
         }
     }
 }
