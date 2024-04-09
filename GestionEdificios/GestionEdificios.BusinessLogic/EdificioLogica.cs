@@ -2,6 +2,7 @@
 using GestionEdificios.BusinessLogic.Interfaces;
 using GestionEdificios.DataAccess.Interfaces;
 using GestionEdificios.Domain;
+using GestionEdificios.Exceptions.ExcepcionesDatos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -54,7 +55,7 @@ namespace GestionEdificios.BusinessLogic
 
         public Edificio Obtener(int Id)
         {
-            throw new NotImplementedException();
+            return validaciones.ValidarSiExisteEdificio(Id);
         }
 
         public IEnumerable<Edificio> ObtenerTodos()
