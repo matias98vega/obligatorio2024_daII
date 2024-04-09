@@ -55,7 +55,14 @@ namespace GestionEdificios.BusinessLogic
 
         public Edificio Obtener(int Id)
         {
-            return validaciones.ValidarSiExisteEdificio(Id);
+            try
+            {
+                return validaciones.ValidarSiExisteEdificio(Id);
+            }
+            catch (BaseDeDatosExcepcion e)
+            {
+                throw new EdificioExcepcionDatos(e.Message);
+            }
         }
 
         public IEnumerable<Edificio> ObtenerTodos()
