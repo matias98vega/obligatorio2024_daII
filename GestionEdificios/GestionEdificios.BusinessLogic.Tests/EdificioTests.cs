@@ -26,6 +26,16 @@ namespace GestionEdificios.BusinessLogic.Tests
         {
             mockRepositorio = new Mock<IEdificioRepositorio>(MockBehavior.Strict);
             constructora = new Constructora() { Id = 1, Nombre = "Constructora 1"};
+
+            Edificio edificio = new Edificio()
+            {
+                Id = 1,
+                Nombre = "Edificio 1",
+                Direccion = "Dirección 1",
+                Ubicacion = "34°54'31.6\"S 56°11'27.1\"W",
+                GastosComunes = 3600,
+                Constructora = constructora
+            };
         }
 
         [TestMethod]
@@ -199,9 +209,32 @@ namespace GestionEdificios.BusinessLogic.Tests
                 Constructora = constructora
             };
             mockRepositorio.Setup(m => m.Obtener(2)).Returns((Edificio)null);
-            //mockRepositorio.VerifyAll();
+
             edificioLogica = new EdificioLogica(mockRepositorio.Object);
             Edificio edificioRetornado = edificioLogica.Actualizar(2, edificioModificado);
+        }
+
+        [TestMethod]
+        public void TestEliminarEdificio()
+        {
+            Edificio edificio = new Edificio()
+            {
+                Id = 1,
+                Nombre = "Edificio 1",
+                Direccion = "Dirección 1",
+                Ubicacion = "34°54'31.6\"S 56°11'27.1\"W",
+                GastosComunes = 3600,
+                Constructora = constructora
+            };
+            mockRepositorio.Setup(m => m.Obtener(1)).Returns(edificio);
+            mockRepositorio.Setup(m => m.Borrar(edificio));
+            mockRepositorio.Setup(m => m.Salvar());
+            mockRepositorio.Setup(m => m.Existe(edificio)).Returns(false);
+
+            edificioLogica = new EdificioLogica(mockRepositorio.Object);
+            edificioLogica.Eliminar(1);
+
+            Assert.AreEqual(edificioLogica.Existe(edificio), false);
         }
     }
 }

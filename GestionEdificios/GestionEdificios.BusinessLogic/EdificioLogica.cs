@@ -45,6 +45,11 @@ namespace GestionEdificios.BusinessLogic
             throw new NotImplementedException();
         }
 
+        public bool Existe(Edificio edificio)
+        {
+            throw new NotImplementedException();
+        }
+
         public Edificio Obtener(int Id)
         {
             throw new NotImplementedException();
