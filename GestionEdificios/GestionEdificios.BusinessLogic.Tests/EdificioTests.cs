@@ -276,5 +276,39 @@ namespace GestionEdificios.BusinessLogic.Tests
             edificioLogica = new EdificioLogica(mockRepositorio.Object);
             Edificio edificio2 = edificioLogica.Obtener(1);
         }
+
+        [TestMethod]
+        public void TestObtenerTodosLosEdificios()
+        {
+            Edificio edificio = new Edificio()
+            {
+                Id = 1,
+                Nombre = "Edificio 1",
+                Direccion = "Dirección 1",
+                Ubicacion = "34°54'31.6\"S 56°11'27.1\"W",
+                GastosComunes = 3600,
+                Constructora = constructora
+            };
+
+            Edificio edificio2 = new Edificio()
+            {
+                Id = 2,
+                Nombre = "Edificio 2",
+                Direccion = "Dirección 2",
+                Ubicacion = "34°54'31.6\"S 56°30'27.1\"W",
+                GastosComunes = 5500,
+                Constructora = constructora
+            };
+            List<Edificio> edificios = new List<Edificio>();
+            edificios.Add(edificio);
+            edificios.Add(edificio2);
+
+            mockRepositorio.Setup(m => m.ObtenerTodos()).Returns(edificios);
+            edificioLogica = new EdificioLogica(mockRepositorio.Object);
+            IEnumerable<Edificio> edificiosEsperados = edificioLogica.ObtenerTodos();
+
+            mockRepositorio.VerifyAll();
+            Assert.AreEqual(edificios, edificiosEsperados);
+        }
     }
 }
