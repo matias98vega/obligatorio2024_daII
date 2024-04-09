@@ -36,6 +36,16 @@ namespace GestionEdificios.BusinessLogic.Helpers
             return String.IsNullOrWhiteSpace(valor);
         }
 
+        public Edificio ValidarSiExisteEdificio(int id)
+        {
+            Edificio edificio = edificios.Obtener(id);
+            if(edificio == null)
+            {
+                throw new EdificioNoEncontradoExcepcion("No se pudo encontrar el edificio con el id " + id);
+            }
+            return edificio;
+        }
+
         public void EdificioYaExiste(Edificio edificio)
         {
             if (edificios.Existe(edificio))

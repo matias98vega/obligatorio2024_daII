@@ -22,7 +22,13 @@ namespace GestionEdificios.BusinessLogic
         }
         public Edificio Actualizar(int id, Edificio modificado)
         {
-            throw new NotImplementedException();
+            Edificio edificio = validaciones.ValidarSiExisteEdificio(id);
+            validaciones.ValidarEdificio(modificado);
+            edificio.Actualizar(modificado);
+            edificios.Actualizar(edificio);
+            edificios.Salvar();
+            return edificio;
+
         }
 
         public Edificio Agregar(Edificio edificio)

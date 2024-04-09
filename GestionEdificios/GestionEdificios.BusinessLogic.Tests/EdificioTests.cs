@@ -147,7 +147,6 @@ namespace GestionEdificios.BusinessLogic.Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(EdificioExisteExcepcion))]
         public void TestEditarEdificioOk()
         {
             Edificio edificio = new Edificio()
@@ -162,7 +161,11 @@ namespace GestionEdificios.BusinessLogic.Tests
 
             Edificio edificioModificado = new Edificio()
             {
-                GastosComunes = 4500    
+                Nombre = edificio.Nombre,
+                Direccion = edificio.Direccion,
+                Ubicacion = edificio.Ubicacion,
+                GastosComunes = 4500,
+                Constructora = constructora
             };
             mockRepositorio.Setup(m => m.Obtener(1)).Returns(edificio);            
             mockRepositorio.Setup(m => m.Actualizar(edificio));
@@ -170,7 +173,6 @@ namespace GestionEdificios.BusinessLogic.Tests
 
             edificioLogica = new EdificioLogica(mockRepositorio.Object);
             Edificio edificioRetornado = edificioLogica.Actualizar(1, edificioModificado);
-
             Assert.AreEqual(edificioRetornado.GastosComunes, 4500);
         }
     }

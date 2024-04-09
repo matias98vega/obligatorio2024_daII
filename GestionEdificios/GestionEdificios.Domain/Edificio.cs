@@ -17,5 +17,12 @@ namespace GestionEdificios.Domain
         public  ICollection<Departamento> Departamentos { get; set; }
 
         public Edificio() { }
+
+        public Edificio Actualizar(Edificio modificado) 
+        {
+            this.GastosComunes = modificado.GastosComunes;
+            this.Constructora = modificado.Constructora;
+            return this;
+        }
     }
 }
