@@ -9,16 +9,6 @@ namespace GestionEdificios.DataAccess.Interfaces
 {
     public interface IEdificioRepositorio : IRepositorio<Edificio>
     {
-
-
+        Edificio Obtener(int id);
     }
-
-    //{
-    //    void Agregar(T entity);
-    //    IEnumerable<T> ObtenerTodos();
-    //    void Salvar();
-    //    void Borrar(T entity);
-    //    void Actualizar(T entity);
-    //    bool Existe(T entity);
-    //}
 }

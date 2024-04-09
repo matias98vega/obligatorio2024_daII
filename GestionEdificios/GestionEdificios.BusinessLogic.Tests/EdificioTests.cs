@@ -19,11 +19,13 @@ namespace GestionEdificios.BusinessLogic.Tests
     {
         private IEdificioLogica edificioLogica;
         private Mock<IEdificioRepositorio> mockRepositorio;
+        private Constructora constructora;
 
         [TestInitialize]
         public void SetUp()
         {
             mockRepositorio = new Mock<IEdificioRepositorio>(MockBehavior.Strict);
+            constructora = new Constructora() { Id = 1, Nombre = "Constructora 1"};
         }
 
         [TestMethod]
@@ -34,7 +36,7 @@ namespace GestionEdificios.BusinessLogic.Tests
                 Nombre = "Edificio 1",
                 Direccion = "Dirección 1",
                 Ubicacion = "34°54'31.6\"S 56°11'27.1\"W",
-                Constructora = "Constructora 1"
+                Constructora = constructora
             };
 
             mockRepositorio.Setup(m => m.Agregar(It.IsAny<Edificio>()));
@@ -116,7 +118,7 @@ namespace GestionEdificios.BusinessLogic.Tests
                 Nombre = "Edificio 1",
                 Direccion = "Dirección 1",
                 Ubicacion = "34°54'31.6\"S 56°11'27.1\"W",
-                Constructora = ""
+                Constructora = null
             };
 
             mockRepositorio.Setup(m => m.Agregar(It.IsAny<Edificio>()));
@@ -134,7 +136,7 @@ namespace GestionEdificios.BusinessLogic.Tests
                 Nombre = "Edificio 1",
                 Direccion = "Dirección 1",
                 Ubicacion = "34°54'31.6\"S 56°11'27.1\"W",
-                Constructora = "Consturctora 1"
+                Constructora = constructora
             };
 
             mockRepositorio.Setup(m => m.Agregar(It.IsAny<Edificio>()));
@@ -142,6 +144,34 @@ namespace GestionEdificios.BusinessLogic.Tests
 
             edificioLogica = new EdificioLogica(mockRepositorio.Object);
             Edificio edificioCreado = edificioLogica.Agregar(edificio);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(EdificioExisteExcepcion))]
+        public void TestEditarEdificioOk()
+        {
+            Edificio edificio = new Edificio()
+            {
+                Id = 1,
+                Nombre = "Edificio 1",
+                Direccion = "Dirección 1",
+                Ubicacion = "34°54'31.6\"S 56°11'27.1\"W",
+                GastosComunes = 3600,
+                Constructora = constructora
+            };
+
+            Edificio edificioModificado = new Edificio()
+            {
+                GastosComunes = 4500    
+            };
+            mockRepositorio.Setup(m => m.Obtener(1)).Returns(edificio);            
+            mockRepositorio.Setup(m => m.Actualizar(edificio));
+            mockRepositorio.Setup(m => m.Salvar());
+
+            edificioLogica = new EdificioLogica(mockRepositorio.Object);
+            Edificio edificioRetornado = edificioLogica.Actualizar(1, edificioModificado);
+
+            Assert.AreEqual(edificioRetornado.GastosComunes, 4500);
         }
     }
 }
