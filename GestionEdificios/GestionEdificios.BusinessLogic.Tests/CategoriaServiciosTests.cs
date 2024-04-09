@@ -125,6 +125,83 @@ namespace GestionEdificios.BusinessLogic.Tests
         /******/
 
         /***** Actualizar *****/
+        [TestMethod]
+        public void TestActualizarCategoriaPorId()
+        {
+            var id = 1;
+            CategoriaServicio categoria = new CategoriaServicio()
+            {
+                Id = id,
+                Nombre = "Plomeria",
+            };
+
+            CategoriaServicio categoriaModificada = new CategoriaServicio()
+            {
+               Nombre = "Sanitaria",
+            };
+
+            mockRepositorio.Setup(m => m.Obtener(id)).Returns(categoria);
+            mockRepositorio.Setup(m => m.Obtener(categoriaModificada.Id)).Returns((CategoriaServicio)null);
+            mockRepositorio.Setup(m => m.Actualizar(categoria));
+            mockRepositorio.Setup(m => m.Salvar());
+
+            categoriaLogica = new CategoriaServicioLogica(mockRepositorio.Object);
+            CategoriaServicio categoriaRetornada = categoriaLogica.Actualizar(id, categoriaModificada);
+
+            mockRepositorio.VerifyAll();
+            Assert.AreEqual(categoria, categoriaRetornada);
+        }
+
+
+        [TestMethod]
+        [ExpectedException(typeof(CategoriaExcepcionDB))]
+        public void TestActualizarCategoriaInvalida()
+        {
+            var id = 1;
+            CategoriaServicio categoria = new CategoriaServicio()
+            {
+                Id = id,
+                Nombre = "Plomeria",
+            };
+
+            CategoriaServicio modificada = new CategoriaServicio()
+            {
+               Nombre = "Sanitaria",
+            };
+
+            mockRepositorio.Setup(m => m.Obtener(id)).Throws(new ExcepcionDB("", new CategoriaExcepcionDB("")));
+            mockRepositorio.Setup(m => m.Actualizar(categoria));
+
+            categoriaLogica = new CategoriaServicioLogica(mockRepositorio.Object);
+            CategoriaServicio categoriaModificada = categoriaLogica.Actualizar(id, modificada);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(CategoriaExcepcionDatos))]
+        public void TestActualizarCategoriaConNombreVacio()
+        {
+            var id = 1;
+            CategoriaServicio categoria = new CategoriaServicio()
+            {
+                Id = id,
+                Nombre = "Plomeria",
+            };
+
+            var modificadoId = 2;
+            CategoriaServicio modificada = new CategoriaServicio()
+            {
+                Id = modificadoId,
+                Nombre = "",
+            };
+
+
+            mockRepositorio.Setup(m => m.Obtener(id)).Returns(categoria);
+            mockRepositorio.Setup(m => m.Obtener(modificada.Id)).Returns((CategoriaServicio)null);
+            mockRepositorio.Setup(m => m.Actualizar(categoria));
+
+            categoriaLogica = new CategoriaServicioLogica(mockRepositorio.Object);
+            CategoriaServicio categoriaModificada = categoriaLogica.Actualizar(id, modificada);
+        }
 
 
 
