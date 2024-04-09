@@ -40,9 +40,11 @@ namespace GestionEdificios.BusinessLogic
             return edificio;
         }
 
-        public void Eliminar(int Id)
+        public void Eliminar(int id)
         {
-            throw new NotImplementedException();
+            Edificio edificio = validaciones.ValidarSiExisteEdificio(id);
+            edificios.Borrar(edificio);
+            edificios.Salvar();
         }
 
         public bool Existe(Edificio edificio)
