@@ -175,5 +175,33 @@ namespace GestionEdificios.BusinessLogic.Tests
             Edificio edificioRetornado = edificioLogica.Actualizar(1, edificioModificado);
             Assert.AreEqual(edificioRetornado.GastosComunes, 4500);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(EdificioNoEncontradoExcepcion))]
+        public void TestEditarEdificioInvalido()
+        {
+            Edificio edificio = new Edificio()
+            {
+                Id = 1,
+                Nombre = "Edificio 1",
+                Direccion = "Dirección 1",
+                Ubicacion = "34°54'31.6\"S 56°11'27.1\"W",
+                GastosComunes = 3600,
+                Constructora = constructora
+            };
+
+            Edificio edificioModificado = new Edificio()
+            {
+                Nombre = edificio.Nombre,
+                Direccion = edificio.Direccion,
+                Ubicacion = edificio.Ubicacion,
+                GastosComunes = 4500,
+                Constructora = constructora
+            };
+            mockRepositorio.Setup(m => m.Obtener(2)).Returns((Edificio)null);
+            //mockRepositorio.VerifyAll();
+            edificioLogica = new EdificioLogica(mockRepositorio.Object);
+            Edificio edificioRetornado = edificioLogica.Actualizar(2, edificioModificado);
+        }
     }
 }
