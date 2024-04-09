@@ -236,5 +236,26 @@ namespace GestionEdificios.BusinessLogic.Tests
 
             Assert.AreEqual(edificioLogica.Existe(edificio), false);
         }
+
+        [TestMethod]
+        public void TestObtenerEdificioPorId()
+        {
+            Edificio edificio = new Edificio()
+            {
+                Id = 1,
+                Nombre = "Edificio 1",
+                Direccion = "Dirección 1",
+                Ubicacion = "34°54'31.6\"S 56°11'27.1\"W",
+                GastosComunes = 3600,
+                Constructora = constructora
+            };
+            mockRepositorio.Setup(m => m.Obtener(1)).Returns(edificio);
+
+            edificioLogica = new EdificioLogica(mockRepositorio.Object);
+            Edificio edificio2 = edificioLogica.Obtener(1);
+
+            Assert.AreEqual(edificio.Id, edificio2.Id);
+            Assert.AreEqual(edificio.Nombre, edificio2.Nombre);
+        }
     }
 }
