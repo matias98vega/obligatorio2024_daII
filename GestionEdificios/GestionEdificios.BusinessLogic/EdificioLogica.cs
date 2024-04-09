@@ -49,7 +49,7 @@ namespace GestionEdificios.BusinessLogic
 
         public bool Existe(Edificio edificio)
         {
-            throw new NotImplementedException();
+            return edificios.Existe(edificio);
         }
 
         public Edificio Obtener(int Id)
