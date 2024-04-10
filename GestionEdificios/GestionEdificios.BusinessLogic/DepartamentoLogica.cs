@@ -13,10 +13,12 @@ namespace GestionEdificios.BusinessLogic
     public class DepartamentoLogica : IDepartamentoLogica
     {
         private IDepartamentoRepositorio departamentos;
+        private DepartamentoValidaciones validaciones;
 
         public DepartamentoLogica(IDepartamentoRepositorio repositorio)
         {
             departamentos = repositorio;
+            this.validaciones = new DepartamentoValidaciones(repositorio);
         }
         public Departamento Actualizar(int id, Departamento modificado)
         {
@@ -25,6 +27,7 @@ namespace GestionEdificios.BusinessLogic
 
         public Departamento Agregar(Departamento departamento)
         {
+            validaciones.ValidarDepartamento(departamento);
             departamentos.Agregar(departamento);
             departamentos.Salvar();
             return departamento;
