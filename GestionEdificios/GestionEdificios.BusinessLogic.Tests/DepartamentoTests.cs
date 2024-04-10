@@ -1,6 +1,7 @@
 ﻿using GestionEdificios.BusinessLogic.Interfaces;
 using GestionEdificios.DataAccess.Interfaces;
 using GestionEdificios.Domain;
+using GestionEdificios.Exceptions.ExcepcionesDatos;
 using GestionEdificios.Exceptions.ExcepcionesDB;
 using Moq;
 using Newtonsoft.Json.Linq;
@@ -58,6 +59,20 @@ namespace GestionEdificios.BusinessLogic.Tests
             Departamento departamentoCreado = departamentoLogica.Agregar(null);
 
             mockRepositorio.VerifyAll();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(DepartamentoExcepcionDatos))]
+        public void TestCrearDepartamentoCamposVacios()
+        {
+            Departamento departamentoVacio = new Departamento()
+            {
+                Id = 1,
+            };
+
+            mockRepositorio.Setup(m => m.Agregar(It.IsAny<Departamento>()));
+            departamentoLogica = new DepartamentoLogica(mockRepositorio.Object);
+            Departamento departamentoCreado = departamentoLogica.Agregar(departamentoVacio);
         }
     }
 }
