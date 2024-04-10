@@ -1,6 +1,7 @@
 ﻿using GestionEdificios.BusinessLogic.Interfaces;
 using GestionEdificios.DataAccess.Interfaces;
 using GestionEdificios.Domain;
+using GestionEdificios.Exceptions.ExcepcionesDB;
 using Moq;
 using Newtonsoft.Json.Linq;
 using System;
@@ -23,8 +24,6 @@ namespace GestionEdificios.BusinessLogic.Tests
         public void SetUp()
         {
             mockRepositorio = new Mock<IDepartamentoRepositorio>(MockBehavior.Strict);
-            //edificio = new Edificio() { Id = 1, Nombre = "Constructora 1" };
-
             this.departamento = new Departamento()
             {
                 Piso = 1,
@@ -40,7 +39,6 @@ namespace GestionEdificios.BusinessLogic.Tests
         public void TestCrearDepartamentoOk()
         {
             mockRepositorio.Setup(m => m.Agregar(It.IsAny<Departamento>()));
-            //mockRepositorio.Setup(m => m.Existe(It.IsAny<Edificio>())).Returns(false);
             mockRepositorio.Setup(m => m.Salvar());
 
             departamentoLogica = new DepartamentoLogica(mockRepositorio.Object);
@@ -48,6 +46,18 @@ namespace GestionEdificios.BusinessLogic.Tests
 
             Assert.AreEqual(departamento.Piso, departamentoCreado.Piso);
             Assert.AreEqual(departamento.Numero, departamentoCreado.Numero);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(DepartamentoExcepcionDB))]
+        public void TestCrearDepartamentoVacio()
+        {
+            mockRepositorio.Setup(m => m.Agregar(null)).Throws(new ExcepcionDB("", new DepartamentoExcepcionDB("")));
+
+            departamentoLogica = new DepartamentoLogica(mockRepositorio.Object);
+            Departamento departamentoCreado = departamentoLogica.Agregar(null);
+
+            mockRepositorio.VerifyAll();
         }
     }
 }
