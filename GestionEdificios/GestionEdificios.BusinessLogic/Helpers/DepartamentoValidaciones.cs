@@ -3,6 +3,7 @@ using GestionEdificios.DataAccess.Interfaces;
 using GestionEdificios.Domain;
 using GestionEdificios.Exceptions.ExcepcionesDatos;
 using GestionEdificios.Exceptions.ExcepcionesDB;
+using GestionEdificios.Exceptions.ExcepcionesLogica;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,14 @@ namespace GestionEdificios.BusinessLogic.Helpers
             if(departamento.Dueño is null)
             {
                 throw new DepartamentoExcepcionDatos("El departamento debe tener un dueño.");
+            }
+        }
+
+        public void ValidarSiExisteDepartamento(Departamento departamento)
+        {
+            if (departamentos.BuscarDepartamentoExistente(departamento))
+            {
+                throw new DepartamentoExisteExcepcion("Ya existe un departamento para dicho edificio, piso y número.");
             }
         }
     }

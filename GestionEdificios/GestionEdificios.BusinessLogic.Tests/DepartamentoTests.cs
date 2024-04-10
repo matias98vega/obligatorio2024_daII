@@ -36,6 +36,7 @@ namespace GestionEdificios.BusinessLogic.Tests
                 CantidadCuartos = 3,
                 Dueño = dueño
             };
+            dueño = new Dueño();
         }
 
         [TestMethod]

@@ -28,6 +28,7 @@ namespace GestionEdificios.BusinessLogic
         public Departamento Agregar(Departamento departamento)
         {
             validaciones.ValidarDepartamento(departamento);
+            validaciones.ValidarSiExisteDepartamento(departamento);
             departamentos.Agregar(departamento);
             departamentos.Salvar();
             return departamento;
