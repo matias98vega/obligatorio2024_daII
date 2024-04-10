@@ -63,16 +63,37 @@ namespace GestionEdificios.BusinessLogic.Tests
 
         [TestMethod]
         [ExpectedException(typeof(DepartamentoExcepcionDatos))]
-        public void TestCrearDepartamentoCamposVacios()
+        public void TestCrearDepartamentoCamposInvalidos()
         {
             Departamento departamentoVacio = new Departamento()
             {
                 Id = 1,
+                Piso = -1,
+                CantidadBaños = 0,
+                CantidadCuartos = 1,
+                Dueño = dueño
             };
 
             mockRepositorio.Setup(m => m.Agregar(It.IsAny<Departamento>()));
             departamentoLogica = new DepartamentoLogica(mockRepositorio.Object);
             Departamento departamentoCreado = departamentoLogica.Agregar(departamentoVacio);
+        }
+        [TestMethod]
+        [ExpectedException(typeof(DepartamentoExcepcionDatos))]
+        public void TestCrearDepartamentoSinDueño()
+        {
+            Departamento departamentoSinDueño = new Departamento()
+            {
+                Id = 1,
+                Piso = 2,
+                CantidadCuartos = 1,
+                CantidadBaños = 1,
+                Dueño = null
+            };
+
+            mockRepositorio.Setup(m => m.Agregar(It.IsAny<Departamento>()));
+            departamentoLogica = new DepartamentoLogica(mockRepositorio.Object);
+            Departamento departamentoCreado = departamentoLogica.Agregar(departamentoSinDueño);
         }
     }
 }
