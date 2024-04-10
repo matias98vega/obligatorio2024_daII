@@ -1,4 +1,6 @@
-﻿using GestionEdificios.BusinessLogic.Interfaces;
+﻿using GestionEdificios.BusinessLogic.Helpers;
+using GestionEdificios.BusinessLogic.Interfaces;
+using GestionEdificios.DataAccess.Interfaces;
 using GestionEdificios.Domain;
 using System;
 using System.Collections.Generic;
@@ -10,6 +12,12 @@ namespace GestionEdificios.BusinessLogic
 {
     public class DepartamentoLogica : IDepartamentoLogica
     {
+        private IDepartamentoRepositorio departamentos;
+
+        public DepartamentoLogica(IDepartamentoRepositorio repositorio)
+        {
+            departamentos = repositorio;
+        }
         public Departamento Actualizar(int id, Departamento modificado)
         {
             throw new NotImplementedException();
@@ -17,7 +25,9 @@ namespace GestionEdificios.BusinessLogic
 
         public Departamento Agregar(Departamento departamento)
         {
-            throw new NotImplementedException();
+            departamentos.Agregar(departamento);
+            departamentos.Salvar();
+            return departamento;
         }
 
         public void Eliminar(int Id)

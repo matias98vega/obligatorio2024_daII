@@ -39,7 +39,6 @@ namespace GestionEdificios.BusinessLogic.Tests
         [TestMethod]
         public void TestCrearDepartamentoOk()
         {
-
             mockRepositorio.Setup(m => m.Agregar(It.IsAny<Departamento>()));
             //mockRepositorio.Setup(m => m.Existe(It.IsAny<Edificio>())).Returns(false);
             mockRepositorio.Setup(m => m.Salvar());
