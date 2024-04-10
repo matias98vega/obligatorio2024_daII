@@ -9,6 +9,6 @@ namespace GestionEdificios.DataAccess.Interfaces
 {
     public interface IDepartamentoRepositorio : IRepositorio<Departamento>
     {
-
+        public bool BuscarDepartamentoExistente(Departamento departamento);
     }
 }

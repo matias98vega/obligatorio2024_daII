@@ -3,6 +3,7 @@ using GestionEdificios.DataAccess.Interfaces;
 using GestionEdificios.Domain;
 using GestionEdificios.Exceptions.ExcepcionesDatos;
 using GestionEdificios.Exceptions.ExcepcionesDB;
+using GestionEdificios.Exceptions.ExcepcionesLogica;
 using Moq;
 using Newtonsoft.Json.Linq;
 using System;
@@ -27,6 +28,7 @@ namespace GestionEdificios.BusinessLogic.Tests
             mockRepositorio = new Mock<IDepartamentoRepositorio>(MockBehavior.Strict);
             this.departamento = new Departamento()
             {
+                EdificioId = 1,
                 Piso = 1,
                 Numero = 1,
                 ConTerraza = true,
@@ -94,6 +96,29 @@ namespace GestionEdificios.BusinessLogic.Tests
             mockRepositorio.Setup(m => m.Agregar(It.IsAny<Departamento>()));
             departamentoLogica = new DepartamentoLogica(mockRepositorio.Object);
             Departamento departamentoCreado = departamentoLogica.Agregar(departamentoSinDueño);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(DepartamentoExisteExcepcion))]
+        public void TestCrearDepartamentoYaExistente()
+        {
+            Departamento departamentoExistente = new Departamento()
+            {
+                Id = 1,
+                EdificioId = 1,
+                Piso = 1,
+                Numero = 1,
+                ConTerraza = true,
+                CantidadBaños = 1,
+                CantidadCuartos = 3,
+                Dueño = dueño
+            };
+
+            mockRepositorio.Setup(m => m.Agregar(It.IsAny<Departamento>()));
+            mockRepositorio.Setup(m => m.BuscarDepartamentoExistente(departamentoExistente)).Returns(true);
+
+            departamentoLogica = new DepartamentoLogica(mockRepositorio.Object);
+            Departamento departamentoCreado = departamentoLogica.Agregar(departamentoExistente);
         }
     }
 }

@@ -10,6 +10,7 @@ namespace GestionEdificios.Domain
     public class Departamento
     {
         public int Id { get; set; }
+        public int EdificioId { get; set; }
         public int Piso { get; set; }
         public int Numero { get; set; }
         public bool ConTerraza { get; set; }
