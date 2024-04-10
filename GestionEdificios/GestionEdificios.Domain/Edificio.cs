@@ -12,10 +12,17 @@ namespace GestionEdificios.Domain
         public string Nombre { get; set; }
         public string Direccion { get; set; }
         public string Ubicacion { get; set; }
-        public string Constructora { get; set; }
+        public Constructora Constructora { get; set; }
         public int GastosComunes { get; set; }
         public  ICollection<Departamento> Departamentos { get; set; }
 
         public Edificio() { }
+
+        public Edificio Actualizar(Edificio modificado) 
+        {
+            this.GastosComunes = modificado.GastosComunes;
+            this.Constructora = modificado.Constructora;
+            return this;
+        }
     }
 }

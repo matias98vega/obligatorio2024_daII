@@ -14,5 +14,7 @@ namespace GestionEdificios.BusinessLogic.Interfaces
         IEnumerable<Edificio> ObtenerTodos();
         void Eliminar(int Id);
         Edificio Actualizar(int id, Edificio modificado);
+
+        bool Existe(Edificio edificio);
     }
 }
