@@ -14,5 +14,6 @@ namespace GestionEdificios.BusinessLogic.Interfaces
         IEnumerable<Departamento> ObtenerTodos();
         void Eliminar(int Id);
         Departamento Actualizar(int id, Departamento modificado);
+        bool Existe(Departamento departamento);
     }
 }

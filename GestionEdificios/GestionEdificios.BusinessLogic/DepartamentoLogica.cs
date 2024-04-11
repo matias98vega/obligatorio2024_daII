@@ -2,6 +2,7 @@
 using GestionEdificios.BusinessLogic.Interfaces;
 using GestionEdificios.DataAccess.Interfaces;
 using GestionEdificios.Domain;
+using GestionEdificios.Exceptions.ExcepcionesDatos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,19 +39,33 @@ namespace GestionEdificios.BusinessLogic
             return departamento;
         }
 
-        public void Eliminar(int Id)
+        public void Eliminar(int id)
         {
-            throw new NotImplementedException();
+            Departamento departamento = validaciones.ObtenerDepartamento(id);
+            departamentos.Borrar(departamento);
+            departamentos.Salvar();
         }
 
-        public Departamento Obtener(int Id)
+        public bool Existe(Departamento departamento)
         {
-            throw new NotImplementedException();
+            return departamentos.Existe(departamento);
+        }
+
+        public Departamento Obtener(int id)
+        {
+            try
+            {
+                return validaciones.ObtenerDepartamento(id);
+            }
+            catch(BaseDeDatosExcepcion e)
+            {
+                throw new DepartamentoExcepcionDatos(e.Message);
+            }
         }
 
         public IEnumerable<Departamento> ObtenerTodos()
         {
-            throw new NotImplementedException();
+            return this.departamentos.ObtenerTodos();
         }
     }
 }

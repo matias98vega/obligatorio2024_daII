@@ -144,5 +144,100 @@ namespace GestionEdificios.BusinessLogic.Tests
             Departamento departamentoRetornado = departamentoLogica.Actualizar(1, departamentoModificado);
             Assert.AreEqual(departamentoRetornado.CantidadCuartos, 5);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(DepartamentoNoEncontradoExcepcion))]
+        public void TestEditarDepartamentoInvalido()
+        {
+            Departamento departamento = new Departamento()
+            {
+                Id = 1,
+                EdificioId = 1,
+                Piso = 1,
+                Numero = 1,
+                ConTerraza = true,
+                CantidadBaños = 1,
+                CantidadCuartos = 5,
+                Dueño = dueño
+            };
+
+            Departamento departamentoModificado = new Departamento()
+            {
+                EdificioId = departamento.EdificioId,
+                Piso = departamento.Piso,
+                Numero = departamento.Numero,
+                CantidadBaños = departamento.CantidadBaños,
+                CantidadCuartos = departamento.CantidadCuartos,
+                Dueño = departamento.Dueño
+            };
+            mockRepositorio.Setup(m => m.Obtener(2)).Returns((Departamento)null);
+
+            departamentoLogica = new DepartamentoLogica(mockRepositorio.Object);
+            Departamento edificioRetornado = departamentoLogica.Actualizar(2, departamentoModificado);
+        }
+
+        [TestMethod]
+        public void TestEliminarDepartamento()
+        {
+            mockRepositorio.Setup(m => m.Obtener(1)).Returns(departamento);
+            mockRepositorio.Setup(m => m.Borrar(departamento));
+            mockRepositorio.Setup(m => m.Salvar());
+            mockRepositorio.Setup(m => m.Existe(departamento)).Returns(false);
+
+            departamentoLogica = new DepartamentoLogica(mockRepositorio.Object);
+            departamentoLogica.Eliminar(1);
+
+            Assert.AreEqual(departamentoLogica.Existe(departamento), false);
+        }
+
+        [TestMethod]
+        public void TestObtenerDepartamentoPorId()
+        {
+            mockRepositorio.Setup(m => m.Obtener(1)).Returns(departamento);
+
+            departamentoLogica = new DepartamentoLogica(mockRepositorio.Object);
+            Departamento departamento2 = departamentoLogica.Obtener(1);
+
+            Assert.AreEqual(departamento.Id, departamento2.Id);
+            Assert.AreEqual(departamento.Piso, departamento2.Piso);
+            Assert.AreEqual(departamento.Numero, departamento2.Numero);
+            Assert.AreEqual(departamento.EdificioId, departamento2.EdificioId);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(DepartamentoExcepcionDatos))]
+        public void TestObtenerDepartamentoPorIdInvalido()
+        {
+            mockRepositorio.Setup(m => m.Obtener(1)).Throws(new BaseDeDatosExcepcion("", new DepartamentoExcepcionDatos("")));
+
+            departamentoLogica = new DepartamentoLogica(mockRepositorio.Object);
+            Departamento departamento2 = departamentoLogica.Obtener(1);
+        }
+
+        [TestMethod]
+        public void TestObtenerTodosLosDepartamentos()
+        {
+            Departamento departamento2 = new Departamento()
+            {
+                Id = 2,
+                EdificioId = 1,
+                Piso = 1,
+                Numero = 2,
+                ConTerraza = true,
+                CantidadBaños = 1,
+                CantidadCuartos = 1,
+                Dueño = dueño
+            };
+            List<Departamento> departamentos = new List<Departamento>();
+            departamentos.Add(departamento);
+            departamentos.Add(departamento2);
+
+            mockRepositorio.Setup(m => m.ObtenerTodos()).Returns(departamentos);
+            departamentoLogica = new DepartamentoLogica(mockRepositorio.Object);
+            IEnumerable<Departamento> edificiosEsperados = departamentoLogica.ObtenerTodos();
+
+            mockRepositorio.VerifyAll();
+            Assert.AreEqual(departamentos, edificiosEsperados);
+        }
     }
 }
