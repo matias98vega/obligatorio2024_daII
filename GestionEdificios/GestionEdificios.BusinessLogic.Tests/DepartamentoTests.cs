@@ -121,5 +121,28 @@ namespace GestionEdificios.BusinessLogic.Tests
             departamentoLogica = new DepartamentoLogica(mockRepositorio.Object);
             Departamento departamentoCreado = departamentoLogica.Agregar(departamentoExistente);
         }
+
+        [TestMethod]
+        public void TestEditarDepartamentoOk()
+        {
+            Departamento departamentoModificado = new Departamento()
+            {
+                Id = 1,
+                EdificioId = 1,
+                Piso = 1,
+                Numero = 1,
+                ConTerraza = true,
+                CantidadBaños = 1,
+                CantidadCuartos = 3,
+                Dueño = dueño
+            };
+            mockRepositorio.Setup(m => m.Obtener(1)).Returns(departamento);
+            mockRepositorio.Setup(m => m.Actualizar(departamento));
+            mockRepositorio.Setup(m => m.Salvar());
+
+            departamentoLogica = new DepartamentoLogica(mockRepositorio.Object);
+            Departamento departamentoRetornado = departamentoLogica.Actualizar(1, departamentoModificado);
+            Assert.AreEqual(departamentoRetornado.CantidadCuartos, 2);
+        }
     }
 }
