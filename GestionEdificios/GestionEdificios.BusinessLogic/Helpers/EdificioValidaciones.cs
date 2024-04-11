@@ -36,7 +36,7 @@ namespace GestionEdificios.BusinessLogic.Helpers
             return String.IsNullOrWhiteSpace(valor);
         }
 
-        public Edificio ValidarSiExisteEdificio(int id)
+        public Edificio ObtenerEdificio(int id)
         {
             Edificio edificio = edificios.Obtener(id);
             if(edificio == null)

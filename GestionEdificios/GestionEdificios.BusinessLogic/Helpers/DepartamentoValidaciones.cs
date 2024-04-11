@@ -43,5 +43,15 @@ namespace GestionEdificios.BusinessLogic.Helpers
                 throw new DepartamentoExisteExcepcion("Ya existe un departamento para dicho edificio, piso y número.");
             }
         }
+
+        internal Departamento ObtenerDepartamento(int id)
+        {
+            Departamento departamento = departamentos.Obtener(id);
+            if (departamento == null)
+            {
+                throw new DepartamentoNoEncontradoExcepcion("No se pudo encontrar el departamento con el id " + id);
+            }
+            return departamento;
+        }
     }
 }

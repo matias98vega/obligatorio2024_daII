@@ -22,7 +22,11 @@ namespace GestionEdificios.BusinessLogic
         }
         public Departamento Actualizar(int id, Departamento modificado)
         {
-            throw new NotImplementedException();
+            Departamento departamento = validaciones.ObtenerDepartamento(id);
+            validaciones.ValidarDepartamento(modificado);
+            departamento.Actualizar(modificado);
+            departamentos.Actualizar(departamento);
+            return departamento;
         }
 
         public Departamento Agregar(Departamento departamento)

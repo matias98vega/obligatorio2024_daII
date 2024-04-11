@@ -133,7 +133,7 @@ namespace GestionEdificios.BusinessLogic.Tests
                 Numero = 1,
                 ConTerraza = true,
                 CantidadBaños = 1,
-                CantidadCuartos = 3,
+                CantidadCuartos = 5,
                 Dueño = dueño
             };
             mockRepositorio.Setup(m => m.Obtener(1)).Returns(departamento);
@@ -142,7 +142,7 @@ namespace GestionEdificios.BusinessLogic.Tests
 
             departamentoLogica = new DepartamentoLogica(mockRepositorio.Object);
             Departamento departamentoRetornado = departamentoLogica.Actualizar(1, departamentoModificado);
-            Assert.AreEqual(departamentoRetornado.CantidadCuartos, 2);
+            Assert.AreEqual(departamentoRetornado.CantidadCuartos, 5);
         }
     }
 }
