@@ -27,6 +27,15 @@ namespace GestionEdificios.Domain
             this.Rol = rol;        
         }
 
+
+        public Usuario(string nombre, string apellido, string email, Roles rol)
+        {
+            this.Nombre = nombre;
+            this.Apellido = apellido;
+            this.Email = email;
+            this.Rol = rol;
+        }
+
         public Usuario Actualizar(Usuario usuario)
         {            
             this.Nombre = usuario.Nombre;

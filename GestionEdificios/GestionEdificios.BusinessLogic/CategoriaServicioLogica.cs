@@ -22,9 +22,22 @@ namespace GestionEdificios.BusinessLogic
             this.validaciones = new CategoriaServiciosValidaciones(repositorio);
 
         }
-        public CategoriaServicio Actualizar(int id, CategoriaServicio modificado)
+        public CategoriaServicio Actualizar(int id, CategoriaServicio modificada)
         {
-            throw new NotImplementedException();
+            try
+            {
+                CategoriaServicio categoriaVieja = Obtener(id);
+                validaciones.ValidarCategoria(modificada);
+                //validaciones.CategoriaYaExiste(modificada);
+                categoriaVieja.Actualizar(modificada);
+                categorias.Actualizar(categoriaVieja);
+                categorias.Salvar();
+                return categoriaVieja;
+            }
+            catch (ExcepcionDB e)
+            {
+                throw new CategoriaExcepcionDB(e.Message);
+            }
         }
 
         public CategoriaServicio Agregar(CategoriaServicio categoria)

@@ -36,7 +36,7 @@ namespace GestionEdificios.BusinessLogic.Helpers
         {
             if (repositorio.Existe(categoria))
             {
-                throw new UsuarioExisteExcepcion("El usuario ya existe en el sistema.");
+                throw new UsuarioExisteExcepcion("La categoria ya existe en el sistema.");
             }
         }
     }

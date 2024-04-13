@@ -17,5 +17,7 @@ namespace GestionEdificios.BusinessLogic.Interfaces
         IEnumerable<Servicio> ObtenerSolicitudesPorCategoria(int CategoriaId);
 
         Servicio AsignarSolicitud(int solicitudId, int usuarioId);
+
+        bool Existe(Servicio servicio);
     }
 }
