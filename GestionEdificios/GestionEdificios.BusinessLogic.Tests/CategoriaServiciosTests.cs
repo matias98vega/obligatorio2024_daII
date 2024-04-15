@@ -202,8 +202,41 @@ namespace GestionEdificios.BusinessLogic.Tests
             categoriaLogica = new CategoriaServicioLogica(mockRepositorio.Object);
             CategoriaServicio categoriaModificada = categoriaLogica.Actualizar(id, modificada);
         }
+        /*******************/
+
+        /**** Obtener ****/
+        [TestMethod]
+        public void TestObtenerCategoriaÓK()
+        {
+            int id = 1;
+            CategoriaServicio categoria = new CategoriaServicio()
+            {
+                Id = id,
+                Nombre = "",
+            };
+
+            mockRepositorio.Setup(m => m.Obtener(id)).Returns(categoria);
+            categoriaLogica = new CategoriaServicioLogica(mockRepositorio.Object);
+            CategoriaServicio categoriaObtenida = categoriaLogica.Obtener(id);
+            Assert.AreEqual(categoria,categoriaObtenida);
+        }
 
 
+        [TestMethod]
+        [ExpectedException(typeof(CategoriaExcepcionDB))]
+        public void TestObtenerCategoriaNoEncontrada()
+        {
+            int id = 1;
+            CategoriaServicio categoria = new CategoriaServicio()
+            {
+                Id = id,
+                Nombre = "",
+            };
+
+            mockRepositorio.Setup(m => m.Obtener(id)).Throws(new ExcepcionDB("", new CategoriaExcepcionDB("")));
+            categoriaLogica = new CategoriaServicioLogica(mockRepositorio.Object);
+            CategoriaServicio categoriaObtenida = categoriaLogica.Obtener(id);
+        }
 
         /*******************/
     }

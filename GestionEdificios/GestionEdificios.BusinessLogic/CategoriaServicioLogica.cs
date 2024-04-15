@@ -70,9 +70,10 @@ namespace GestionEdificios.BusinessLogic
 
         public CategoriaServicio Obtener(int Id)
         {
+
             try
             {
-                return ObtenerCategoriaPorId(Id);
+                return categorias.Obtener(Id);
             }
             catch (ExcepcionDB e)
             {
@@ -83,16 +84,6 @@ namespace GestionEdificios.BusinessLogic
         public IEnumerable<CategoriaServicio> ObtenerTodas()
         {
             throw new NotImplementedException();
-        }
-
-        public CategoriaServicio ObtenerCategoriaPorId(int id)
-        {
-            CategoriaServicio retornada = categorias.Obtener(id);
-            if (retornada == null)
-            {
-                throw new CategoriaNoEncontradaExcepcion("No se encontro categoria con id: " + id);
-            }
-            return retornada;
         }
     }
 }
