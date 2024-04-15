@@ -1,4 +1,6 @@
-﻿using GestionEdificios.BusinessLogic.Interfaces;
+﻿using GestionEdificios.BusinessLogic.Helpers;
+using GestionEdificios.BusinessLogic.Interfaces;
+using GestionEdificios.DataAccess.Interfaces;
 using GestionEdificios.Domain;
 using System;
 using System.Collections.Generic;
@@ -10,6 +12,14 @@ namespace GestionEdificios.BusinessLogic
 {
     public class InvitacionLogica : IInvitacionLogica
     {
+        private IInvitacionRepositorio invitaciones;
+        private InvitacionValidaciones validaciones;
+
+        public InvitacionLogica(IInvitacionRepositorio repositorio)
+        {
+            this.invitaciones = repositorio;
+            this.validaciones = new InvitacionValidaciones(repositorio);
+        }
         public Invitacion Actualizar(int id, Invitacion modificada)
         {
             throw new NotImplementedException();
