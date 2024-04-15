@@ -15,9 +15,12 @@ namespace GestionEdificios.BusinessLogic.Helpers
     public class ServicioValidaciones
     {
         private IServicioRepositorio repositorio;
-        public ServicioValidaciones(IServicioRepositorio repository)
+        private IUsuarioRepositorio usuarioRepositorio;
+
+        public ServicioValidaciones(IServicioRepositorio repositorio, IUsuarioRepositorio usuarios)
         {
-            this.repositorio = repository;
+            this.repositorio = repositorio;
+            this.usuarioRepositorio = usuarios;
         }
 
         public void ValidarServicio(Servicio servicio)
@@ -38,6 +41,24 @@ namespace GestionEdificios.BusinessLogic.Helpers
             {
                 throw new ServicioExisteExcepcion("El servicio ya existe en el sistema.");
             }
+        }
+
+        public void ServicioNoExiste(Servicio servicio)
+        {
+            if (repositorio.Existe(servicio))
+            {
+                throw new ServicioNoExiste("El servicio no existe en el sistema.");
+            }
+        }
+
+        public void ValidarUsuario(int usuarioId) 
+        {
+            Usuario usuario = usuarioRepositorio.Obtener(usuarioId);
+            if (usuario == null)
+            {
+                throw new UsuarioNoEncontradoExcepcion("El usuario de la solicitud no existe.");
+            }
+
         }
 
         public bool TextoInvalido(string valor)

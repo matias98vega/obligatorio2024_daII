@@ -15,12 +15,14 @@ namespace GestionEdificios.BusinessLogic
     public class ServicioLogica : IServicioLogica
     {
         private IServicioRepositorio servicios;
+        private IUsuarioRepositorio usuarios;
         private ServicioValidaciones validaciones;
-        public ServicioLogica(IServicioRepositorio repositorio)
+
+        public ServicioLogica(IServicioRepositorio repositorio, IUsuarioRepositorio repositorioUsuario)
         {
             this.servicios = repositorio;
-            this.validaciones = new ServicioValidaciones(repositorio);
-
+            this.usuarios = repositorioUsuario;
+            this.validaciones = new ServicioValidaciones(repositorio,repositorioUsuario);
         }
 
         public Servicio Actualizar(int id, Servicio modificado)
@@ -52,6 +54,9 @@ namespace GestionEdificios.BusinessLogic
 
         public Servicio AsignarSolicitud(int solicitudId, int usuarioId)
         {
+            Servicio servicio = servicios.Obtener(solicitudId);
+            validaciones.ServicioNoExiste(servicio);
+            validaciones.ValidarUsuario(usuarioId);
             return servicios.AsignarSolicitud(solicitudId, usuarioId);
         }
 

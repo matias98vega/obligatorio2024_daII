@@ -509,6 +509,28 @@ namespace GestionEdificios.BusinessLogic.Tests
 
         /***********/
 
+        /***** Existe ******/
+        [TestMethod]
+        public void TestExisteUsuario()
+        {
+            var id = 1;
+            Usuario usuario = new Usuario()
+            {
+                Id = id,
+                Nombre = "Pepe",
+                Apellido = "Veneno",
+                Email = "holis@hotmail.com",
+                Contraseña = "1234",
+                Rol = Roles.Administrador
+            };
+
+            mockRepositorio.Setup(m => m.Existe(usuario)).Returns(true);
+            usuarioLogica = new UsuarioLogica(mockRepositorio.Object);
+            bool existe = usuarioLogica.Existe(usuario);
+            Assert.IsTrue(existe);
+        }
+        /*******************/
+
 
 
 
