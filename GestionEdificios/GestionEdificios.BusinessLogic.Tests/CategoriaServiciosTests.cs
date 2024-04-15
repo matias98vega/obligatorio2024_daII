@@ -140,8 +140,7 @@ namespace GestionEdificios.BusinessLogic.Tests
                Nombre = "Sanitaria",
             };
 
-            mockRepositorio.Setup(m => m.Obtener(id)).Returns(categoria);
-            mockRepositorio.Setup(m => m.Obtener(categoriaModificada.Id)).Returns((CategoriaServicio)null);
+            mockRepositorio.Setup(m => m.Obtener(id)).Returns(categoria);            
             mockRepositorio.Setup(m => m.Actualizar(categoria));
             mockRepositorio.Setup(m => m.Salvar());
 
@@ -236,6 +235,35 @@ namespace GestionEdificios.BusinessLogic.Tests
             mockRepositorio.Setup(m => m.Obtener(id)).Throws(new ExcepcionDB("", new CategoriaExcepcionDB("")));
             categoriaLogica = new CategoriaServicioLogica(mockRepositorio.Object);
             CategoriaServicio categoriaObtenida = categoriaLogica.Obtener(id);
+        }
+
+        /*******************/
+
+        /** Obtener todas**/
+        [TestMethod]
+        public void TestObtenerTodas()
+        {
+            List<CategoriaServicio> categorias = new List<CategoriaServicio>();
+            int id = 1;
+            CategoriaServicio categoria = new CategoriaServicio()
+            {
+                Id = id,
+                Nombre = "",
+            };
+
+            int id2 = 2;
+            CategoriaServicio categoria2 = new CategoriaServicio()
+            {
+                Id = id,
+                Nombre = "",
+            };
+            categorias.Add(categoria);
+            categorias.Add(categoria2);
+
+            mockRepositorio.Setup(m => m.ObtenerTodos()).Returns(categorias);
+            categoriaLogica = new CategoriaServicioLogica(mockRepositorio.Object);
+            List<CategoriaServicio> categoriasObtenidas = (List<CategoriaServicio>)categoriaLogica.ObtenerTodas();
+            Assert.AreEqual(categorias, categoriasObtenidas);
         }
 
         /*******************/
