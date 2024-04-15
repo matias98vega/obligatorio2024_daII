@@ -29,6 +29,8 @@ namespace GestionEdificios.BusinessLogic.Tests
             mockRepositorio = new Mock<IInvitacionRepositorio>(MockBehavior.Strict);
         }
 
+        /**** ****/
+
 
     }
 }

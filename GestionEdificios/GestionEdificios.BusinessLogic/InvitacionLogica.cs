@@ -13,13 +13,16 @@ namespace GestionEdificios.BusinessLogic
     public class InvitacionLogica : IInvitacionLogica
     {
         private IInvitacionRepositorio invitaciones;
+        private IUsuarioRepositorio usuarios;
         private InvitacionValidaciones validaciones;
 
-        public InvitacionLogica(IInvitacionRepositorio repositorio)
+        public InvitacionLogica(IInvitacionRepositorio repositorio, IUsuarioRepositorio repositorioUsuario)
         {
             this.invitaciones = repositorio;
-            this.validaciones = new InvitacionValidaciones(repositorio);
+            this.usuarios = repositorioUsuario;
+            this.validaciones = new InvitacionValidaciones(repositorio, repositorioUsuario);
         }
+
         public Invitacion Actualizar(int id, Invitacion modificada)
         {
             throw new NotImplementedException();
