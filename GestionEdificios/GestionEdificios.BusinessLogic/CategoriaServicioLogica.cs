@@ -83,7 +83,7 @@ namespace GestionEdificios.BusinessLogic
 
         public IEnumerable<CategoriaServicio> ObtenerTodas()
         {
-            throw new NotImplementedException();
+            return categorias.ObtenerTodos();
         }
     }
 }
