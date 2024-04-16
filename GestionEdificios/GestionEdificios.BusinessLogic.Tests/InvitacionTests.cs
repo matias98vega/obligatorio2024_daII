@@ -534,11 +534,77 @@ namespace GestionEdificios.BusinessLogic.Tests
 
         /*******************/
 
+        /*** Invitaciones por encargado ***/
+        [TestMethod]
+        public void TestObtenerInvitacionesPorEncargado()
+        {
+            List<Invitacion> invitaciones = new List<Invitacion>();
+            int usuarioId = 1;
+            Usuario encargado = new Usuario(usuarioId, "Pepe", "Veneno", "Holis@gmail.com", Roles.Mantenimiento);
+            int id = 1;
+            Invitacion invitacion = new Invitacion()
+            {
+                Id = id,
+                Email = "Holis@gmail.com",
+                Nombre = "Pepe",
+                FechaLimite = DateTime.Parse("22/02/1991"),
+                Estado = EstadosInvitaciones.Abierta,
+                Encargado = encargado
+            };
+            int id2 = 2;
+            Invitacion invitacion2 = new Invitacion()
+            {
+                Id = id2,
+                Email = "Holis@gmail.com",
+                Nombre = "Pepe",
+                FechaLimite = DateTime.Parse("22/02/1991"),
+                Estado = EstadosInvitaciones.Abierta,
+                Encargado = encargado
+            };
+            invitaciones.Add(invitacion);
+            invitaciones.Add(invitacion2);
 
+            mockRepositorio.Setup(m => m.ObtenerInvitacionesPorEncargado(usuarioId)).Returns(invitaciones);
+            invitacionLogica = new InvitacionLogica(mockRepositorio.Object, usuarioRepositorio.Object);
+            List<Invitacion> invitacionesRetornadas = (List<Invitacion>)invitacionLogica.ObtenerInvitacionesPorEncargado(usuarioId);
+            Assert.AreEqual(invitaciones, invitacionesRetornadas);
+        }
 
+        [TestMethod]
+        [ExpectedException(typeof(UsuarioExcepcionDB))]
+        public void TestObtenerInvitacionesPorEncargadoNoExiste()
+        {
+            List<Invitacion> invitaciones = new List<Invitacion>();
+            int usuarioId = 1;
+            Usuario encargado = new Usuario(usuarioId, "Pepe", "Veneno", "Holis@gmail.com", Roles.Mantenimiento);
+            int id = 1;
+            Invitacion invitacion = new Invitacion()
+            {
+                Id = id,
+                Email = "Holis@gmail.com",
+                Nombre = "Pepe",
+                FechaLimite = DateTime.Parse("22/02/1991"),
+                Estado = EstadosInvitaciones.Abierta,
+                Encargado = encargado
+            };
+            int id2 = 2;
+            Invitacion invitacion2 = new Invitacion()
+            {
+                Id = id2,
+                Email = "Holis@gmail.com",
+                Nombre = "Pepe",
+                FechaLimite = DateTime.Parse("22/02/1991"),
+                Estado = EstadosInvitaciones.Abierta,
+                Encargado = encargado
+            };
+            invitaciones.Add(invitacion);
+            invitaciones.Add(invitacion2);
 
-
-
+            mockRepositorio.Setup(m => m.ObtenerInvitacionesPorEncargado(usuarioId)).Throws(new ExcepcionDB("", new UsuarioExcepcionDB("")));
+            invitacionLogica = new InvitacionLogica(mockRepositorio.Object, usuarioRepositorio.Object);
+            List<Invitacion> invitacionesRetornadas = (List<Invitacion>)invitacionLogica.ObtenerInvitacionesPorEncargado(usuarioId);
+        }
+        /*****************/
 
     }
 }
