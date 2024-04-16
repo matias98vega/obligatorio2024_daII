@@ -6,8 +6,10 @@ using GestionEdificios.Exceptions.ExcepcionesDB;
 using GestionEdificios.Exceptions.ExcepcionesLogica;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace GestionEdificios.BusinessLogic.Helpers
@@ -29,9 +31,13 @@ namespace GestionEdificios.BusinessLogic.Helpers
             {
                 throw new InvitacionExcepcionDB("La invitación esta vacía.");
             }
-            if (TextoInvalido(invitacion.Email) || invitacion.Nombre == "" || invitacion.FechaLimite == DateTime.MinValue)
+            if (invitacion.Nombre == "" || invitacion.FechaLimite == DateTime.MinValue)
             {
-                throw new ServicioExcepcionDatos("Los atributos de la invitación no pueden estar vacios.");
+                throw new InvitacionExcepcionDatos("Los atributos de la invitación no pueden estar vacios.");
+            }
+            if (EmailInvalido(invitacion.Email))
+            {
+                throw new InvitacionExcepcionDatos("El email esta vacío o no es correcto, Por favor ingrese otro");
             }
         }
 
@@ -65,6 +71,19 @@ namespace GestionEdificios.BusinessLogic.Helpers
                 throw new InvitacionNoExiste("El servicio no existe en el sistema.");
             }
         }
+
+        public bool EmailInvalido(string email)
+        {
+            return EmailFormatoInvalido(email) || string.IsNullOrWhiteSpace(email);
+        }
+
+        public bool EmailFormatoInvalido(string anEmail)
+        {
+            Regex rex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$", RegexOptions.CultureInvariant);
+            return !(rex.IsMatch(anEmail.ToString(CultureInfo.InvariantCulture)));
+        }
+
+
 
     }
 }
