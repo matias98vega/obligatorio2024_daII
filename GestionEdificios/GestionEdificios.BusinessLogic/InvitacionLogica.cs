@@ -55,7 +55,16 @@ namespace GestionEdificios.BusinessLogic
 
         public void Eliminar(int Id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Invitacion invitacion = invitaciones.Obtener(Id);
+                invitaciones.Borrar(invitacion);
+                invitaciones.Salvar();
+            }
+            catch (ExcepcionDB e)
+            {
+                throw new InvitacionExcepcionDB(e.Message);
+            }
         }
 
         public Invitacion Obtener(int Id)
