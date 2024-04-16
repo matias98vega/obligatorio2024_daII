@@ -60,8 +60,9 @@ namespace GestionEdificios.BusinessLogic
 
         public Invitacion Obtener(int Id)
         {
-            throw new NotImplementedException();
+            return invitaciones.Obtener(Id);
         }
+
 
         public IEnumerable<Invitacion> ObtenerInvitacionesPorEncargado(int id)
         {
@@ -72,5 +73,11 @@ namespace GestionEdificios.BusinessLogic
         {
             throw new NotImplementedException();
         }
+
+        public bool Existe(Invitacion invitacion)
+        {
+            return invitaciones.Existe(invitacion);
+        }
+
     }
 }
