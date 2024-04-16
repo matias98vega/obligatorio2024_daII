@@ -410,7 +410,6 @@ namespace GestionEdificios.BusinessLogic.Tests
 
             mockRepositorio.Setup(m => m.Actualizar(It.IsAny<Servicio>()));
             mockRepositorio.Setup(m => m.Obtener(id)).Returns(servicio);
-            mockRepositorio.Setup(m => m.Existe(servicio)).Returns(false);
             mockRepositorio.Setup(m => m.Salvar());
 
             servicioLogica = new ServicioLogica(mockRepositorio.Object, usuarioRepositorio.Object);
@@ -430,10 +429,11 @@ namespace GestionEdificios.BusinessLogic.Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ServicioExcepcionDB))]
+        [ExpectedException(typeof(ServicioNoExiste))]
         public void TestActualizarServicioVacio()
         {
             int id = 1;
+            Servicio servicioNoExiste = null; 
             Servicio servicio = new Servicio()
             {
                 Id = id,
@@ -448,7 +448,7 @@ namespace GestionEdificios.BusinessLogic.Tests
             };
 
             mockRepositorio.Setup(m => m.Actualizar(It.IsAny<Servicio>())).Throws(new ExcepcionDB("", new ServicioExcepcionDB(""))); ;
-            mockRepositorio.Setup(m => m.Obtener(id)).Returns(servicio);
+            mockRepositorio.Setup(m => m.Obtener(id)).Returns(servicioNoExiste);
             mockRepositorio.Setup(m => m.Existe(servicio)).Returns(false);
             mockRepositorio.Setup(m => m.Salvar());
 

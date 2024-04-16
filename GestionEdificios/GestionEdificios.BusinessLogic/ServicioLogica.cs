@@ -31,7 +31,7 @@ namespace GestionEdificios.BusinessLogic
             {
                 Servicio servicioViejo = Obtener(id);
                 validaciones.ValidarServicio(modificado);
-                validaciones.ServicioYaExiste(modificado);
+                validaciones.ServicioExiste(id);
                 servicioViejo.Actualizar(modificado);
                 servicios.Actualizar(servicioViejo);
                 servicios.Salvar();

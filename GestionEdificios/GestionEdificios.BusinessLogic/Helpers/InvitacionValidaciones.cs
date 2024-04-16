@@ -63,15 +63,16 @@ namespace GestionEdificios.BusinessLogic.Helpers
         {
             if (repositorio.Existe(invitacion))
             {
-                throw new InvitacionExisteExcepcion("El servicio ya existe en el sistema.");
+                throw new InvitacionExisteExcepcion("La invitacion ya existe en el sistema.");
             }
         }
 
-        public void InvitacionNoExiste(Invitacion invitacion)
+        public void InvitacionExiste(int invitacionId)
         {
-            if (repositorio.Existe(invitacion))
+            Invitacion invitacion = repositorio.Obtener(invitacionId);
+            if (invitacion == null)
             {
-                throw new InvitacionNoExiste("El servicio no existe en el sistema.");
+                throw new InvitacionNoExiste("La invitacion no existe en el sistema.");
             }
         }
 

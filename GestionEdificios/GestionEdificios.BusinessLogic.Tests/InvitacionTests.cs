@@ -210,6 +210,201 @@ namespace GestionEdificios.BusinessLogic.Tests
 
         /***************/
 
+        /****** Actualizar ******/
+        [TestMethod]
+        public void TestActualizarInvitacionOK()
+        {
+            Usuario encargado = new Usuario(1, "Pepe", "Veneno", "Holis@gmail.com", Roles.Mantenimiento);
+            int id = 1;
+           Invitacion invitacion = new Invitacion()
+            {
+                Id = id,
+                Email = "Holis@gmail.com",
+                Nombre = "Pepe",
+                FechaLimite = DateTime.Parse("22/02/1991"),
+                Estado = EstadosInvitaciones.Abierta,
+                Encargado = encargado
+            };
+
+            mockRepositorio.Setup(m => m.Actualizar(It.IsAny<Invitacion>()));
+            mockRepositorio.Setup(m => m.Obtener(id)).Returns(invitacion);
+            mockRepositorio.Setup(m => m.Salvar());
+
+            invitacionLogica = new InvitacionLogica(mockRepositorio.Object, usuarioRepositorio.Object);
+            Invitacion invitacionModificada = invitacionLogica.Actualizar(id, invitacion);
+
+            mockRepositorio.VerifyAll();
+
+            Assert.AreEqual(invitacion, invitacionModificada);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvitacionNoExiste))]
+        public void TestActualizarInvitacionNoExiste()
+        {
+            Usuario encargado = new Usuario(1, "Pepe", "Veneno", "Holis@gmail.com", Roles.Mantenimiento);
+            int id = 1;
+
+            Invitacion invitacionVacia = null;
+            Invitacion invitacion = new Invitacion()
+            {
+                Id = id,
+                Email = "Holis@gmail.com",
+                Nombre = "Pepe",
+                FechaLimite = DateTime.Parse("22/02/1991"),
+                Estado = EstadosInvitaciones.Abierta,
+                Encargado = encargado
+            };
+
+            mockRepositorio.Setup(m => m.Actualizar(It.IsAny<Invitacion>()));
+            mockRepositorio.Setup(m => m.Obtener(id)).Returns(invitacionVacia);
+            mockRepositorio.Setup(m => m.Salvar());
+
+            invitacionLogica = new InvitacionLogica(mockRepositorio.Object, usuarioRepositorio.Object);
+            Invitacion invitacionModificada = invitacionLogica.Actualizar(id, invitacion);
+
+            mockRepositorio.VerifyAll();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvitacionExcepcionDatos))]
+        public void TestActualizarEmailIncorrecto()
+        {
+            Usuario encargado = new Usuario(1, "Pepe", "Veneno", "Holis@gmail.com", Roles.Mantenimiento);
+            int id = 1;
+            Invitacion invitacion = new Invitacion()
+            {
+                Id = id,
+                Email = "3468595",
+                Nombre = "Pepe",
+                FechaLimite = DateTime.Parse("22/02/1991"),
+                Estado = EstadosInvitaciones.Abierta,
+                Encargado = encargado
+            };
+
+            mockRepositorio.Setup(m => m.Actualizar(It.IsAny<Invitacion>()));
+            mockRepositorio.Setup(m => m.Obtener(id)).Returns(invitacion);
+            mockRepositorio.Setup(m => m.Salvar());
+
+            invitacionLogica = new InvitacionLogica(mockRepositorio.Object, usuarioRepositorio.Object);
+            Invitacion invitacionModificada = invitacionLogica.Actualizar(id, invitacion);
+
+            mockRepositorio.VerifyAll();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvitacionExcepcionDatos))]
+        public void TestActualizarEmailVacio()
+        {
+            Usuario encargado = new Usuario(1, "Pepe", "Veneno", "Holis@gmail.com", Roles.Mantenimiento);
+            int id = 1;
+            Invitacion invitacion = new Invitacion()
+            {
+                Id = id,
+                Email = "",
+                Nombre = "Pepe",
+                FechaLimite = DateTime.Parse("22/02/1991"),
+                Estado = EstadosInvitaciones.Abierta,
+                Encargado = encargado
+            };
+
+            mockRepositorio.Setup(m => m.Actualizar(It.IsAny<Invitacion>()));
+            mockRepositorio.Setup(m => m.Obtener(id)).Returns(invitacion);
+            mockRepositorio.Setup(m => m.Salvar());
+
+            invitacionLogica = new InvitacionLogica(mockRepositorio.Object, usuarioRepositorio.Object);
+            Invitacion invitacionModificada = invitacionLogica.Actualizar(id, invitacion);
+
+            mockRepositorio.VerifyAll();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvitacionExcepcionDatos))]
+        public void TestActualizarNombreVacio()
+        {
+            Usuario encargado = new Usuario(1, "Pepe", "Veneno", "Holis@gmail.com", Roles.Mantenimiento);
+            int id = 1;
+            Invitacion invitacion = new Invitacion()
+            {
+                Id = id,
+                Email = "holis@gmail.com",
+                Nombre = "",
+                FechaLimite = DateTime.Parse("22/02/1991"),
+                Estado = EstadosInvitaciones.Abierta,
+                Encargado = encargado
+            };
+
+            mockRepositorio.Setup(m => m.Actualizar(It.IsAny<Invitacion>()));
+            mockRepositorio.Setup(m => m.Obtener(id)).Returns(invitacion);
+            mockRepositorio.Setup(m => m.Salvar());
+
+            invitacionLogica = new InvitacionLogica(mockRepositorio.Object, usuarioRepositorio.Object);
+            Invitacion invitacionModificada = invitacionLogica.Actualizar(id, invitacion);
+
+            mockRepositorio.VerifyAll();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvitacionExcepcionDatos))]
+        public void TestActualizarFechaLimiteVacia()
+        {
+            Usuario encargado = new Usuario(1, "Pepe", "Veneno", "Holis@gmail.com", Roles.Mantenimiento);
+            int id = 1;
+            Invitacion invitacion = new Invitacion()
+            {
+                Id = id,
+                Email = "holis@gmail.com",
+                Nombre = "Pepe",
+                FechaLimite = DateTime.MinValue,
+                Estado = EstadosInvitaciones.Abierta,
+                Encargado = encargado
+            };
+
+            mockRepositorio.Setup(m => m.Actualizar(It.IsAny<Invitacion>()));
+            mockRepositorio.Setup(m => m.Obtener(id)).Returns(invitacion);
+            mockRepositorio.Setup(m => m.Salvar());
+
+            invitacionLogica = new InvitacionLogica(mockRepositorio.Object, usuarioRepositorio.Object);
+            Invitacion invitacionModificada = invitacionLogica.Actualizar(id, invitacion);
+
+            mockRepositorio.VerifyAll();
+        }
+
+        [ExpectedException(typeof(InvitacionExcepcionDatos))]
+        public void TestActualizarUsuarioVacio()
+        {
+
+            Usuario encargado = null;            
+            int id = 1;
+            Invitacion invitacion = new Invitacion()
+            {
+                Id = id,
+                Email = "holis@gmail.com",
+                Nombre = "",
+                FechaLimite = DateTime.Parse("22/02/1991"),
+                Estado = EstadosInvitaciones.Abierta,
+                Encargado = encargado
+            };
+
+            mockRepositorio.Setup(m => m.Actualizar(It.IsAny<Invitacion>()));
+            mockRepositorio.Setup(m => m.Obtener(id)).Returns(invitacion);
+            mockRepositorio.Setup(m => m.Salvar());
+            usuarioRepositorio.Setup(m => m.Existe(encargado)).Returns(false);
+
+            invitacionLogica = new InvitacionLogica(mockRepositorio.Object, usuarioRepositorio.Object);
+            Invitacion invitacionModificada = invitacionLogica.Actualizar(id, invitacion);
+
+            mockRepositorio.VerifyAll();
+        }
+        /***************/
+
+
+
+
+
+
+
+
 
     }
 }
