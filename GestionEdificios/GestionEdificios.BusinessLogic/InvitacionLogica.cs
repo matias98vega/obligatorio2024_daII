@@ -30,7 +30,13 @@ namespace GestionEdificios.BusinessLogic
 
         public Invitacion Agregar(Invitacion invitacion)
         {
-            throw new NotImplementedException();
+            validaciones.ValidarInvitacion(invitacion);
+            validaciones.InvitacionYaExiste(invitacion);
+            validaciones.ValidarUsuario(invitacion.Encargado);
+            invitaciones.Agregar(invitacion);
+            invitaciones.Salvar();
+            return invitacion;
+
         }
 
         public void Eliminar(int Id)

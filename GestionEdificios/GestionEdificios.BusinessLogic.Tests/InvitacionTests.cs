@@ -47,6 +47,7 @@ namespace GestionEdificios.BusinessLogic.Tests
         [TestMethod]
         public void TestCrearInvitacionOK()
         {
+            Usuario encargado = new Usuario(1, "Pepe", "Veneno", "Holis@gmail.com", Roles.Mantenimiento);
             int id = 1;
             Invitacion invitacion = new Invitacion()
             {
@@ -55,12 +56,13 @@ namespace GestionEdificios.BusinessLogic.Tests
                 Nombre = "Pepe",
                 FechaLimite = DateTime.Parse("22/02/1991"),
                 Estado = EstadosInvitaciones.Abierta,
-                Encargado = new Usuario("Pepe", "Veneno", "Holis@gmail.com", Roles.Mantenimiento)
+                Encargado = encargado
             };
 
             mockRepositorio.Setup(m => m.Agregar(It.IsAny<Invitacion>()));
             mockRepositorio.Setup(m => m.Existe(invitacion)).Returns(false);
             mockRepositorio.Setup(m => m.Salvar());
+            usuarioRepositorio.Setup(m => m.Existe(encargado)).Returns(true);
 
             invitacionLogica = new InvitacionLogica(mockRepositorio.Object, usuarioRepositorio.Object);
             Invitacion invitacionCreada = invitacionLogica.Agregar(invitacion);
@@ -76,7 +78,7 @@ namespace GestionEdificios.BusinessLogic.Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ServicioExisteExcepcion))]
+        [ExpectedException(typeof(InvitacionExisteExcepcion))]
         public void TestCrearInvitacionYaExiste()
         {
             int id = 1;
@@ -182,10 +184,11 @@ namespace GestionEdificios.BusinessLogic.Tests
 
 
         [TestMethod]
-        [ExpectedException(typeof(InvitacionExcepcionDatos))]
+        [ExpectedException(typeof(UsuarioNoEncontradoExcepcion))]
         public void TestCrearInvitacionUsuarioVacio()
         {
-            int id = 1;
+            int id = 1;            
+            Usuario encargado = null;
             Invitacion invitacion = new Invitacion()
             {
                 Id = id,
@@ -193,10 +196,13 @@ namespace GestionEdificios.BusinessLogic.Tests
                 Nombre = "Pepe",
                 FechaLimite = DateTime.Parse("22/02/1991"),
                 Estado = EstadosInvitaciones.Abierta,
-                Encargado = new Usuario("Pepe", "Veneno", "", Roles.Mantenimiento),
+                Encargado = encargado,
             };
 
             mockRepositorio.Setup(m => m.Agregar(It.IsAny<Invitacion>()));
+            mockRepositorio.Setup(m => m.Existe(invitacion)).Returns(false);
+            mockRepositorio.Setup(m => m.Salvar());
+            usuarioRepositorio.Setup(m => m.Existe(encargado)).Returns(false);
             invitacionLogica = new InvitacionLogica(mockRepositorio.Object, usuarioRepositorio.Object);
             Invitacion invitacionCreada = invitacionLogica.Agregar(invitacion);
         }

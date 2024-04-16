@@ -31,7 +31,7 @@ namespace GestionEdificios.BusinessLogic.Helpers
             {
                 throw new InvitacionExcepcionDB("La invitación esta vacía.");
             }
-            if (invitacion.Nombre == "" || invitacion.FechaLimite == DateTime.MinValue)
+            if (invitacion.Nombre == "" || invitacion.FechaLimite == DateTime.MinValue )
             {
                 throw new InvitacionExcepcionDatos("Los atributos de la invitación no pueden estar vacios.");
             }
@@ -46,10 +46,13 @@ namespace GestionEdificios.BusinessLogic.Helpers
             return String.IsNullOrWhiteSpace(valor);
         }
 
-        public void ValidarUsuario(int usuarioId)
-        {
-            Usuario usuario = usuarioRepositorio.Obtener(usuarioId);
-            if (usuario == null)
+        public void ValidarUsuario(Usuario encargado)
+        {           
+            if (encargado == null || encargado.Id == 0 )
+            { 
+                throw new UsuarioNoEncontradoExcepcion("El usuario encargado de la invitación no existe.");
+            }
+            if (!usuarioRepositorio.Existe(encargado)) 
             {
                 throw new UsuarioNoEncontradoExcepcion("El usuario encargado de la invitación no existe.");
             }
