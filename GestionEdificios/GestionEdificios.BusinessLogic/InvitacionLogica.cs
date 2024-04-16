@@ -80,7 +80,7 @@ namespace GestionEdificios.BusinessLogic
 
         public IEnumerable<Invitacion> ObtenerTodas()
         {
-            throw new NotImplementedException();
+            return invitaciones.ObtenerTodos();
         }
 
         public bool Existe(Invitacion invitacion)
