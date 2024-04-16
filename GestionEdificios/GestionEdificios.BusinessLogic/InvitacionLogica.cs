@@ -72,10 +72,16 @@ namespace GestionEdificios.BusinessLogic
             return invitaciones.Obtener(Id);
         }
 
-
         public IEnumerable<Invitacion> ObtenerInvitacionesPorEncargado(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return invitaciones.ObtenerInvitacionesPorEncargado(id);
+            }
+            catch (ExcepcionDB e)
+            {
+                throw new UsuarioExcepcionDB(e.Message);
+            }
         }
 
         public IEnumerable<Invitacion> ObtenerTodas()
