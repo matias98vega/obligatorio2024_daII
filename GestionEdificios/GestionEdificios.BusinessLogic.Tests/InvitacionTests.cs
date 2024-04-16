@@ -473,6 +473,42 @@ namespace GestionEdificios.BusinessLogic.Tests
             Assert.AreEqual(invitacion, invitacionRetornada);
         }
         /*****************/
+        /*** Obtener todas las invitaciones ***/
+        [TestMethod]
+        public void TestObtenerTodasLasInvitaciones()
+        {
+            List<Invitacion> invitaciones = new List<Invitacion>();
+            Usuario encargado = new Usuario(1, "Pepe", "Veneno", "Holis@gmail.com", Roles.Mantenimiento);
+            int id = 1;
+            Invitacion invitacion = new Invitacion()
+            {
+                Id = id,
+                Email = "Holis@gmail.com",
+                Nombre = "Pepe",
+                FechaLimite = DateTime.Parse("22/02/1991"),
+                Estado = EstadosInvitaciones.Abierta,
+                Encargado = encargado
+            };
+
+            int id2 = 1;
+            Invitacion invitacion2 = new Invitacion()
+            {
+                Id = id,
+                Email = "Holis@gmail.com",
+                Nombre = "Pepe",
+                FechaLimite = DateTime.Parse("22/02/1991"),
+                Estado = EstadosInvitaciones.Abierta,
+                Encargado = encargado
+            };
+            invitaciones.Add(invitacion);
+            invitaciones.Add(invitacion2);
+
+            mockRepositorio.Setup(m => m.ObtenerTodos()).Returns(invitaciones);
+            invitacionLogica = new InvitacionLogica(mockRepositorio.Object, usuarioRepositorio.Object);
+            List<Invitacion> invitacionesRetornadas = (List<Invitacion>)invitacionLogica.ObtenerTodas();
+            Assert.AreEqual(invitaciones, invitacionesRetornadas);
+        }
+        /*****************/
 
 
 
