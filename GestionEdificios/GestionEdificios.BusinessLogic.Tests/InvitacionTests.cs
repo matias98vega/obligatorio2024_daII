@@ -510,6 +510,29 @@ namespace GestionEdificios.BusinessLogic.Tests
         }
         /*****************/
 
+        /***** Existe ******/
+        [TestMethod]
+        public void TestExisteInvitacion()
+        {
+            Usuario encargado = new Usuario(1, "Pepe", "Veneno", "Holis@gmail.com", Roles.Mantenimiento);
+            int id = 1;
+            Invitacion invitacion = new Invitacion()
+            {
+                Id = id,
+                Email = "Holis@gmail.com",
+                Nombre = "Pepe",
+                FechaLimite = DateTime.Parse("22/02/1991"),
+                Estado = EstadosInvitaciones.Abierta,
+                Encargado = encargado
+            };
+
+            mockRepositorio.Setup(m => m.Existe(invitacion)).Returns(true);
+            invitacionLogica = new InvitacionLogica(mockRepositorio.Object, usuarioRepositorio.Object);
+            bool existe = invitacionLogica.Existe(invitacion);
+            Assert.IsTrue(existe);
+        }
+
+        /*******************/
 
 
 
