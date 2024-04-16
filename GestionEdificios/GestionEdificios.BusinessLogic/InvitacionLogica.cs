@@ -2,6 +2,7 @@
 using GestionEdificios.BusinessLogic.Interfaces;
 using GestionEdificios.DataAccess.Interfaces;
 using GestionEdificios.Domain;
+using GestionEdificios.Exceptions.ExcepcionesDB;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,20 @@ namespace GestionEdificios.BusinessLogic
 
         public Invitacion Actualizar(int id, Invitacion modificada)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Invitacion invitacionVieja = Obtener(id);
+                validaciones.ValidarInvitacion(modificada);
+                validaciones.InvitacionExiste(id);
+                invitacionVieja.Actualizar(modificada);
+                invitaciones.Actualizar(invitacionVieja);
+                invitaciones.Salvar();
+                return invitacionVieja;
+            }
+            catch (ExcepcionDB e)
+            {
+                throw new InvitacionExcepcionDB(e.Message);
+            }
         }
 
         public Invitacion Agregar(Invitacion invitacion)

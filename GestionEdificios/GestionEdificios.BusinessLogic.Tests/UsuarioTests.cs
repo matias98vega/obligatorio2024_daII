@@ -444,7 +444,7 @@ namespace GestionEdificios.BusinessLogic.Tests
             Assert.AreEqual(usuarioRetornado, usuario);
         }
 
-
+        /***********/
 
         [TestMethod]
         public void TestObtenerTodosUsuarios()

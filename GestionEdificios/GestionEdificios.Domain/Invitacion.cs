@@ -15,5 +15,16 @@ namespace GestionEdificios.Domain
         public DateTime FechaLimite { get; set; }
         public EstadosInvitaciones Estado { get; set; }
         public virtual Usuario Encargado { get; set; }
+
+        public Invitacion Actualizar(Invitacion invitacion)
+        {
+            this.Email = invitacion.Email;
+            this.Nombre = invitacion.Nombre;
+            this.FechaLimite = invitacion.FechaLimite;
+            this.Estado = invitacion.Estado;
+            this.Encargado = invitacion.Encargado;
+
+            return this;
+        }
     }
 }

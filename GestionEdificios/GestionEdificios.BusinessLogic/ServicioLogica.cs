@@ -86,7 +86,14 @@ namespace GestionEdificios.BusinessLogic
 
         public IEnumerable<Servicio> ObtenerSolicitudesPorCategoria(int CategoriaId)
         {
-           return servicios.ObtenerXCategoria(CategoriaId); 
+            try
+            {
+                return servicios.ObtenerXCategoria(CategoriaId);
+            }
+            catch (ExcepcionDB e)
+            {
+                throw new CategoriaExcepcionDB(e.Message);
+            }
         }
 
         public IEnumerable<Servicio> ObtenerTodos()

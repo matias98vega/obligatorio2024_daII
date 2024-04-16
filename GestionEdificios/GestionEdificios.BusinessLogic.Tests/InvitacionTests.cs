@@ -187,7 +187,7 @@ namespace GestionEdificios.BusinessLogic.Tests
         [ExpectedException(typeof(UsuarioNoEncontradoExcepcion))]
         public void TestCrearInvitacionUsuarioVacio()
         {
-            int id = 1;            
+            int id = 1;
             Usuario encargado = null;
             Invitacion invitacion = new Invitacion()
             {
@@ -216,7 +216,7 @@ namespace GestionEdificios.BusinessLogic.Tests
         {
             Usuario encargado = new Usuario(1, "Pepe", "Veneno", "Holis@gmail.com", Roles.Mantenimiento);
             int id = 1;
-           Invitacion invitacion = new Invitacion()
+            Invitacion invitacion = new Invitacion()
             {
                 Id = id,
                 Email = "Holis@gmail.com",
@@ -374,7 +374,7 @@ namespace GestionEdificios.BusinessLogic.Tests
         public void TestActualizarUsuarioVacio()
         {
 
-            Usuario encargado = null;            
+            Usuario encargado = null;
             int id = 1;
             Invitacion invitacion = new Invitacion()
             {

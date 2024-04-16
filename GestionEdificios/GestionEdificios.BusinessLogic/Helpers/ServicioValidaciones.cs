@@ -48,7 +48,7 @@ namespace GestionEdificios.BusinessLogic.Helpers
             Servicio servicio = repositorio.Obtener(idServicio);
             if (servicio == null)
             {
-                throw new ServicioNoExiste("El servicio a modificar no existe en el sistema.");
+                throw new ServicioNoExiste("El servicio no existe en el sistema.");
             }
         }
 

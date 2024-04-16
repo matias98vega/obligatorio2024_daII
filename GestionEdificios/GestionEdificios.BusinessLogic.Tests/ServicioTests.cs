@@ -808,9 +808,49 @@ namespace GestionEdificios.BusinessLogic.Tests
             List<Servicio> serviciosRetornados = (List<Servicio>)servicioLogica.ObtenerSolicitudesPorCategoria(categoriaId);
             Assert.AreEqual(servicios, serviciosRetornados);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(CategoriaExcepcionDB))]
+        public void TestObtenerServiciosPorCategoriaInexistente()
+        {
+            List<Servicio> servicios = new List<Servicio>();
+            int categoriaId = 1;
+            int id = 1;
+            Servicio servicio = new Servicio()
+            {
+                Id = id,
+                Descripcion = "Limpiar vidrios",
+                Categoria = new CategoriaServicio(categoriaId, "Plomeria"),
+                Estado = EstadosServicios.Abierto,
+                UsuarioMantenimiento = new Usuario("Pepe", "Veneno", "Holis@gmail.com", Roles.Mantenimiento),
+                FechaInicio = DateTime.Parse("22/02/1991"),
+                FechaFin = DateTime.Parse("22/02/1991"),
+                CostoTotal = 0,
+                Departamento = new Departamento(1, 1, true, 1, 1)
+            };
+            int id2 = 2;
+            Servicio servicio2 = new Servicio()
+            {
+                Id = id2,
+                Descripcion = "Limpiar vidrios",
+                Categoria = new CategoriaServicio(categoriaId, "Plomeria"),
+                Estado = EstadosServicios.Abierto,
+                UsuarioMantenimiento = new Usuario("Pepe", "Veneno", "Holis@gmail.com", Roles.Mantenimiento),
+                FechaInicio = DateTime.Parse("22/02/1991"),
+                FechaFin = DateTime.Parse("22/02/1991"),
+                CostoTotal = 0,
+                Departamento = new Departamento(1, 1, true, 1, 1)
+            };
+            servicios.Add(servicio);
+            servicios.Add(servicio2);
+
+            mockRepositorio.Setup(m => m.ObtenerXCategoria(id)).Throws(new ExcepcionDB("", new CategoriaExcepcionDB("")));
+            servicioLogica = new ServicioLogica(mockRepositorio.Object, usuarioRepositorio.Object);
+            List<Servicio> serviciosRetornados = (List<Servicio>)servicioLogica.ObtenerSolicitudesPorCategoria(categoriaId);
+        }
         /*****************/
 
-        /*** Obtener todas las categorias ***/
+        /*** Obtener todos los servicios ***/
         [TestMethod]
         public void TestObtenerTodosLosServicios()
         {
