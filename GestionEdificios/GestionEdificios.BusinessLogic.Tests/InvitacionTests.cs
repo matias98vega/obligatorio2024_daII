@@ -397,7 +397,59 @@ namespace GestionEdificios.BusinessLogic.Tests
             mockRepositorio.VerifyAll();
         }
         /***************/
+        /***** Eliminar *****/
+        [TestMethod]
+        public void TestEliminarInvitacionPorId()
+        {
+            Usuario encargado = new Usuario(1, "Pepe", "Veneno", "Holis@gmail.com", Roles.Mantenimiento);
+            int id = 1;
+            Invitacion invitacion = new Invitacion()
+            {
+                Id = id,
+                Email = "Holis@gmail.com",
+                Nombre = "Pepe",
+                FechaLimite = DateTime.Parse("22/02/1991"),
+                Estado = EstadosInvitaciones.Abierta,
+                Encargado = encargado
+            };
 
+            mockRepositorio.Setup(m => m.Obtener(id)).Returns(invitacion);
+            mockRepositorio.Setup(m => m.Borrar(invitacion));
+            mockRepositorio.Setup(m => m.Existe(invitacion)).Returns(false);
+
+            mockRepositorio.Setup(m => m.Salvar());
+
+            invitacionLogica = new InvitacionLogica(mockRepositorio.Object, usuarioRepositorio.Object);
+            invitacionLogica.Eliminar(id);
+
+
+            Assert.AreEqual(invitacionLogica.Existe(invitacion), false);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvitacionExcepcionDB))]
+        public void TestEliminarInvitacionConIdIncorrecto()
+        {
+            Usuario encargado = new Usuario(1, "Pepe", "Veneno", "Holis@gmail.com", Roles.Mantenimiento);
+            int id = 1;
+            Invitacion invitacion = new Invitacion()
+            {
+                Id = id,
+                Email = "Holis@gmail.com",
+                Nombre = "Pepe",
+                FechaLimite = DateTime.Parse("22/02/1991"),
+                Estado = EstadosInvitaciones.Abierta,
+                Encargado = encargado
+            };
+
+
+            mockRepositorio.Setup(m => m.Obtener(id)).Throws(new ExcepcionDB("", new InvitacionExcepcionDB("")));
+            invitacionLogica = new InvitacionLogica(mockRepositorio.Object, usuarioRepositorio.Object);
+            invitacionLogica.Eliminar(id);
+        }
+
+
+        /***************/
 
 
 
