@@ -8,7 +8,7 @@ namespace GestionEdificios.WebApi.DTOs
         public string Nombre { get; set; }
         public string Direccion { get; set; }
         public string Ubicacion { get; set; }
-        public string Constructora { get; set; }
+        public Constructora Constructora { get; set; }
         public int GastosComunes { get; set; }
         public EdificioDto() { }
         public EdificioDto(Edificio entidad)

@@ -25,6 +25,13 @@ namespace GestionEdificios.BusinessLogic.Tests
         [TestInitialize]
         public void SetUp()
         {
+            dueño = new Dueño()
+            {
+                Email = "dueño@email.com",
+                Nombre = "Dueño 1",
+                Apellido = "Dueño 2",
+                Id = 1
+            };
             mockRepositorio = new Mock<IDepartamentoRepositorio>(MockBehavior.Strict);
             this.departamento = new Departamento()
             {
@@ -36,12 +43,12 @@ namespace GestionEdificios.BusinessLogic.Tests
                 CantidadCuartos = 3,
                 Dueño = dueño
             };
-            dueño = new Dueño();
         }
 
         [TestMethod]
         public void TestCrearDepartamentoOk()
         {
+            mockRepositorio.Setup(m => m.BuscarDepartamentoExistente(departamento)).Returns(false);
             mockRepositorio.Setup(m => m.Agregar(It.IsAny<Departamento>()));
             mockRepositorio.Setup(m => m.Salvar());
 
