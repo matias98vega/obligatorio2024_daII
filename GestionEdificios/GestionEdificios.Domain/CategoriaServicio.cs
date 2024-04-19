@@ -11,5 +11,21 @@ namespace GestionEdificios.Domain
         public int Id { get; set; }
         public string Nombre { get; set; }
         public CategoriaServicio() { }
+
+        public CategoriaServicio(int id, string nombre)
+        {
+            Id = id;
+            Nombre = nombre;
+        }
+
+        public CategoriaServicio( string nombre)
+        {
+            Nombre = nombre;
+        }
+        public CategoriaServicio Actualizar(CategoriaServicio categoria)
+        {
+            this.Nombre = categoria.Nombre;
+            return this;
+        }
     }
 }

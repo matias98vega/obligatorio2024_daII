@@ -11,7 +11,7 @@ namespace GestionEdificios.DataAccess.Interfaces
     {
         Servicio Obtener(int id);
 
-        Servicio ObtenerXCategoria(int categoriaId);
+        List<Servicio> ObtenerXCategoria(int categoriaId);
 
         Servicio AsignarSolicitud(int solicitudId, int usuarioId);
     }

@@ -13,6 +13,7 @@ using GestionEdificios.BusinessLogic.Interfaces;
 using GestionEdificios.DataAccess.Interfaces;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using GestionEdificios.Domain.Enumerados;
+using System.Security.Cryptography;
 
 namespace GestionEdificios.BusinessLogic.Tests
 {
@@ -416,6 +417,119 @@ namespace GestionEdificios.BusinessLogic.Tests
         }
 
         /***********/
+
+        /****** Obtener *****/
+
+        [TestMethod]
+        public void TestObtenerUsuarioPorId()
+        {
+            var id = 1;
+
+            Usuario usuario = new Usuario()
+            {
+                Id = id,
+                Nombre = "Pepe",
+                Apellido = "Veneno",
+                Email = "holis@hotmail.com",
+                Contraseña = "1234",
+                Rol = Roles.Administrador
+            };
+
+            mockRepositorio.Setup(m => m.Obtener(id)).Returns(usuario);
+
+            usuarioLogica = new UsuarioLogica(mockRepositorio.Object);
+            Usuario usuarioRetornado = usuarioLogica.Obtener(id);
+
+            mockRepositorio.VerifyAll();
+            Assert.AreEqual(usuarioRetornado, usuario);
+        }
+
+        /***********/
+
+        [TestMethod]
+        public void TestObtenerTodosUsuarios()
+        {
+            Usuario usuario = new Usuario()
+            {
+                Id = 1,
+                Nombre = "Pepe",
+                Apellido = "Veneno",
+                Email = "holis@hotmail.com",
+                Contraseña = "1234",
+                Rol = Roles.Administrador
+            };
+
+            Usuario usuario2 = new Usuario()
+            {
+                Id = 2,
+                Nombre = "Pepe",
+                Apellido = "Veneno",
+                Email = "holis@hotmail.com",
+                Contraseña = "1234",
+                Rol = Roles.Administrador
+            };
+
+            List<Usuario> usuarios = new List<Usuario>();
+            usuarios.Add(usuario);
+            usuarios.Add(usuario2);
+
+            mockRepositorio.Setup(m => m.ObtenerTodos()).Returns(usuarios);
+            usuarioLogica = new UsuarioLogica(mockRepositorio.Object);
+            IEnumerable<Usuario> usuariosRetornados = usuarioLogica.ObtenerTodos();
+
+            mockRepositorio.VerifyAll();
+            Assert.AreEqual(usuarios, usuariosRetornados);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(UsuarioNoEncontradoExcepcion))]
+        public void TestObtenerUsuarioConIdIncorrecto()
+        {
+            mockRepositorio.Setup(m => m.Obtener(It.IsAny<int>())).Returns((Usuario)null);
+
+            usuarioLogica = new UsuarioLogica(mockRepositorio.Object);
+            Random rnd = new Random();
+            Usuario usuarioRetornado = usuarioLogica.Obtener(rnd.Next());
+
+            mockRepositorio.VerifyAll();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(UsuarioExcepcionDB))]
+        public void TestObtenerUsuarioConIdIncorrecto2()
+        {
+            mockRepositorio.Setup(m => m.Obtener(It.IsAny<int>())).Throws(new ExcepcionDB("", new UsuarioExcepcionDB("")));
+
+            usuarioLogica = new UsuarioLogica(mockRepositorio.Object);
+            Random rnd = new Random();
+            Usuario adminReturned = usuarioLogica.Obtener(rnd.Next());
+
+            mockRepositorio.VerifyAll();
+        }
+
+        /***********/
+
+        /***** Existe ******/
+        [TestMethod]
+        public void TestExisteUsuario()
+        {
+            var id = 1;
+            Usuario usuario = new Usuario()
+            {
+                Id = id,
+                Nombre = "Pepe",
+                Apellido = "Veneno",
+                Email = "holis@hotmail.com",
+                Contraseña = "1234",
+                Rol = Roles.Administrador
+            };
+
+            mockRepositorio.Setup(m => m.Existe(usuario)).Returns(true);
+            usuarioLogica = new UsuarioLogica(mockRepositorio.Object);
+            bool existe = usuarioLogica.Existe(usuario);
+            Assert.IsTrue(existe);
+        }
+        /*******************/
 
 
 

@@ -18,6 +18,25 @@ namespace GestionEdificios.Domain
         public int CantidadCuartos { get; set; }
         public virtual Dueño Dueño { get; set; }
 
+        public Departamento(int id, int piso, bool conTerraza, int cantidadBaños, int cantidadCuartos, Dueño dueño)
+        {
+            Id = id;
+            Piso = piso;
+            ConTerraza = conTerraza;
+            CantidadBaños = cantidadBaños;
+            CantidadCuartos = cantidadCuartos;
+            Dueño = dueño;
+        }
+
+        public Departamento(int id, int piso, bool conTerraza, int cantidadBaños, int cantidadCuartos)
+        {
+            Id = id;
+            Piso = piso;
+            ConTerraza = conTerraza;
+            CantidadBaños = cantidadBaños;
+            CantidadCuartos = cantidadCuartos;
+        }
+
         public Departamento Actualizar(Departamento modificado)
         {
             this.Piso = modificado.Piso;
