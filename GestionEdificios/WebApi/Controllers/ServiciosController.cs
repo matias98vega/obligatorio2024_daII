@@ -20,11 +20,11 @@ namespace GestionEdificios.WebApi.Controllers
         {
             try
             {
-                Servicio servicio = servicios.Agregar(ServicioDto.ToEntity(servicioDto));
-                return CreatedAtAction(
-                            "Get",
+                ServicioDto servicio = ServicioDto.ToModel(servicios.Agregar(ServicioDto.ToEntity(servicioDto)));
+                return base.CreatedAtAction(
+                            "Get".ToString(),
                             routeValues: new { id = servicio.Id },
-                            value: ServicioDto.ToModel(servicio)
+                            value: servicio
                     );
             }
             catch (Exception e)

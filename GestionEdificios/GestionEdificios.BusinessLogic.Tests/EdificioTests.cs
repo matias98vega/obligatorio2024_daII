@@ -50,6 +50,7 @@ namespace GestionEdificios.BusinessLogic.Tests
             };
 
             mockRepositorio.Setup(m => m.Agregar(It.IsAny<Edificio>()));
+            mockRepositorio.Setup(m => m.Existe(It.IsAny<Edificio>())).Returns(false);
             mockRepositorio.Setup(m => m.Salvar());
 
             edificioLogica = new EdificioLogica(mockRepositorio.Object);

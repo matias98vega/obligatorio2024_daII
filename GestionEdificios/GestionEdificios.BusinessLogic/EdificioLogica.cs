@@ -23,7 +23,7 @@ namespace GestionEdificios.BusinessLogic
         }
         public Edificio Actualizar(int id, Edificio modificado)
         {
-            Edificio edificio = validaciones.ValidarSiExisteEdificio(id);
+            Edificio edificio = validaciones.ObtenerEdificio(id);
             validaciones.ValidarEdificio(modificado);
             edificio.Actualizar(modificado);
             edificios.Actualizar(edificio);
@@ -43,7 +43,7 @@ namespace GestionEdificios.BusinessLogic
 
         public void Eliminar(int id)
         {
-            Edificio edificio = validaciones.ValidarSiExisteEdificio(id);
+            Edificio edificio = validaciones.ObtenerEdificio(id);
             edificios.Borrar(edificio);
             edificios.Salvar();
         }
@@ -57,7 +57,7 @@ namespace GestionEdificios.BusinessLogic
         {
             try
             {
-                return validaciones.ValidarSiExisteEdificio(Id);
+                return validaciones.ObtenerEdificio(Id);
             }
             catch (BaseDeDatosExcepcion e)
             {

@@ -1,5 +1,8 @@
-﻿using GestionEdificios.BusinessLogic.Interfaces;
+﻿using GestionEdificios.BusinessLogic.Helpers;
+using GestionEdificios.BusinessLogic.Interfaces;
+using GestionEdificios.DataAccess.Interfaces;
 using GestionEdificios.Domain;
+using GestionEdificios.Exceptions.ExcepcionesDatos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,29 +13,59 @@ namespace GestionEdificios.BusinessLogic
 {
     public class DepartamentoLogica : IDepartamentoLogica
     {
+        private IDepartamentoRepositorio departamentos;
+        private DepartamentoValidaciones validaciones;
+
+        public DepartamentoLogica(IDepartamentoRepositorio repositorio)
+        {
+            departamentos = repositorio;
+            this.validaciones = new DepartamentoValidaciones(repositorio);
+        }
         public Departamento Actualizar(int id, Departamento modificado)
         {
-            throw new NotImplementedException();
+            Departamento departamento = validaciones.ObtenerDepartamento(id);
+            validaciones.ValidarDepartamento(modificado);
+            departamento.Actualizar(modificado);
+            departamentos.Actualizar(departamento);
+            return departamento;
         }
 
         public Departamento Agregar(Departamento departamento)
         {
-            throw new NotImplementedException();
+            validaciones.ValidarDepartamento(departamento);
+            validaciones.ValidarSiExisteDepartamento(departamento);
+            departamentos.Agregar(departamento);
+            departamentos.Salvar();
+            return departamento;
         }
 
-        public void Eliminar(int Id)
+        public void Eliminar(int id)
         {
-            throw new NotImplementedException();
+            Departamento departamento = validaciones.ObtenerDepartamento(id);
+            departamentos.Borrar(departamento);
+            departamentos.Salvar();
         }
 
-        public Departamento Obtener(int Id)
+        public bool Existe(Departamento departamento)
         {
-            throw new NotImplementedException();
+            return departamentos.Existe(departamento);
+        }
+
+        public Departamento Obtener(int id)
+        {
+            try
+            {
+                return validaciones.ObtenerDepartamento(id);
+            }
+            catch(BaseDeDatosExcepcion e)
+            {
+                throw new DepartamentoExcepcionDatos(e.Message);
+            }
         }
 
         public IEnumerable<Departamento> ObtenerTodos()
         {
-            throw new NotImplementedException();
+            return this.departamentos.ObtenerTodos();
         }
     }
 }
