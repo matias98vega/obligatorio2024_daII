@@ -20,17 +20,19 @@ namespace GestionEdificios.WebApi3.Tests
         private EdificiosController controller;
         private EdificioDto? edificioDto;
         private Edificio edificio;
+        private Constructora constructora;
 
         [TestInitialize]
         public void SetUp()
         {
+            constructora = new Constructora() { Id = 1, Nombre = "Constructora 1" };
             this.mockWebApi = new Mock<IEdificioLogica>(MockBehavior.Strict);
             edificioDto = new EdificioDto()
             {
                 Nombre = "Nombre Edificio",
                 Direccion = "Avenida Siempreviva 742",
                 Ubicacion = "L:53, L:50",
-                Constructora = "Constructora Edificio",
+                Constructora = constructora,
                 GastosComunes = 5000
             };
 
@@ -76,12 +78,13 @@ namespace GestionEdificios.WebApi3.Tests
         [TestMethod]
         public void TestAgregarEdificioConNombreExistente()
         {
+            constructora = new Constructora() { Id = 1, Nombre = "Constructora 2" };
             EdificioDto edificioDto2 = new EdificioDto()
             {
                 Nombre = "Nombre Edificio",
                 Direccion = "Calle 1243",
                 Ubicacion = "L: 123, L:54",
-                Constructora = "Otra constructora",
+                Constructora = constructora,
                 GastosComunes = 6500
             };
 
