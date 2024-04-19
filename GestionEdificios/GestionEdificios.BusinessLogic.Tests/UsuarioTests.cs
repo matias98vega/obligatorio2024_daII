@@ -30,8 +30,6 @@ namespace GestionEdificios.BusinessLogic.Tests
             mockRepositorio = new Mock<IUsuarioRepositorio>(MockBehavior.Strict);
         }
 
-
-        /****** Crear ******/
         [TestMethod]
         [ExpectedException(typeof(UsuarioExcepcionDB))]
         public void TestAgregarUsuarioVacio()
@@ -149,7 +147,6 @@ namespace GestionEdificios.BusinessLogic.Tests
             usuarioLogica = new UsuarioLogica(mockRepositorio.Object);
             Usuario usuarioCreado = usuarioLogica.Agregar(usuario);
         }
-        /******************/
         
         /****** Borrar *******/
         [TestMethod]
@@ -197,8 +194,6 @@ namespace GestionEdificios.BusinessLogic.Tests
             usuarioLogica = new UsuarioLogica(mockRepositorio.Object);
             usuarioLogica.Eliminar(id);
         }
-
-        /******/
 
         /***** Actualizar *****/
         [TestMethod]
@@ -416,10 +411,7 @@ namespace GestionEdificios.BusinessLogic.Tests
             Usuario usuarioModificado = usuarioLogica.Actualizar(usuarioId, modificado);
         }
 
-        /***********/
-
         /****** Obtener *****/
-
         [TestMethod]
         public void TestObtenerUsuarioPorId()
         {
@@ -443,8 +435,6 @@ namespace GestionEdificios.BusinessLogic.Tests
             mockRepositorio.VerifyAll();
             Assert.AreEqual(usuarioRetornado, usuario);
         }
-
-        /***********/
 
         [TestMethod]
         public void TestObtenerTodosUsuarios()
@@ -507,8 +497,6 @@ namespace GestionEdificios.BusinessLogic.Tests
             mockRepositorio.VerifyAll();
         }
 
-        /***********/
-
         /***** Existe ******/
         [TestMethod]
         public void TestExisteUsuario()
@@ -529,11 +517,5 @@ namespace GestionEdificios.BusinessLogic.Tests
             bool existe = usuarioLogica.Existe(usuario);
             Assert.IsTrue(existe);
         }
-        /*******************/
-
-
-
-
-
     }
 }
